@@ -5,6 +5,7 @@ import MainPage from './components/MainPage/MainPage';
 
 ReactDOM.render(
   <>
+    <Reset/>
     <MainPage/>
   </>,
   document.getElementById('root')

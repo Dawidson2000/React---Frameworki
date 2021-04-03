@@ -18,7 +18,12 @@ const Content = styled.div`
 
 const MainPage: FC = () => {
     return (
-        <Tak/>
+        <Wrap>
+            <TopBar/>
+            <Content>
+                <div>content</div>
+            </Content>
+        </Wrap>
     )
 }
 
