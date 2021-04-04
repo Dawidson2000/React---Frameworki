@@ -3,11 +3,13 @@ import styled from 'styled-components';
 
 import {TopBar} from '../TopBar/TopBar';
 
-const Tak = () =>{
-    return <div>Tak</div>
-}
-
-const Wrap = styled.div `
+const Wrap = styled.div`
+    width: 100%;
+    height: 100vh;
+    background-color: lightgrey;
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
 `;
 
 const Content = styled.div`
@@ -21,7 +23,6 @@ const MainPage: FC = () => {
         <Wrap>
             <TopBar/>
             <Content>
-                <div>content</div>
             </Content>
         </Wrap>
     )
