@@ -9,13 +9,14 @@ import {ExpandedMenu} from './ExpandedMenu';
 
 const TopWrapper = styled(Wrapper)`
     width: 100%;
-    height: 40px;
+    height: 50px;
     background-color: ${Colors.white};
     font-size: ${fontSize[14]};
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-sizing: border-box;
 `;
 
 const CustomImg = styled.img`
@@ -82,7 +83,7 @@ export const TopBar: FC = () => {
                 </LeftHomeIcon>
             </LeftWrapper>
             <MiddleWrapper>
-                <ExpandedMenu/>   
+                <ExpandedMenu></ExpandedMenu>
                 <InputWrapper> 
                     <CustomInput type='text' defaultValue="Search LegalCluster"/>
                     <CustomIcon src='../../media/icons/search.png'/>

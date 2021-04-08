@@ -5,13 +5,12 @@ import {Wrapper} from '../../styledHelpers/Components';
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 
-
-const CustomIcon = styled.img`
-margin-right: 70px;
-`;
+import {DropDown} from './DropDown';
 
 export const ExpandedMenu: FC = () => {
     return(
-        <CustomIcon src ='../../media/icons/arrow-down.png'/>
+        <div>
+        <DropDown/>
+        </div>
     )
 }

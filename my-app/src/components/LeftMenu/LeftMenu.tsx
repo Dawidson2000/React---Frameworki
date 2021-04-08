@@ -19,7 +19,8 @@ const TopCard = styled.div`
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 const BottonIcons = styled.div`
@@ -73,29 +74,64 @@ const BottonCard = styled.div`
     width: 210px;
 `;
 
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
+  .then(json => json.filter((user: any) => user.id===1)
+                           .map((userName: any) => userName.name));
+
+const UserHolder = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const CustomImg = styled.div`
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: grey;
+    margin-top: 15px;
+    margin-bottom: 15px;
+`;
+let UserName = styled.div`
+    font-size: ${fontSize[14]};
+    color: ${Colors.blue};
+`;
+const UserCompany = styled.div`
+    color: lightgray;
+    margin-top: 15px;
+`;
+
+
 export const LeftMenu: FC = () => {
     return(
         <Wrapper>
             <TopCard>
+                <UserHolder>
+                    <CustomImg/>
+                    <UserName>Elon Musk</UserName>
+                    <UserCompany>CEO - SpaceX</UserCompany>
+                </UserHolder>
+                
                 <BottonIcons>
-                <Panel>
-                    <InnerWrapper>
-                        <CustomIconTop src='../../media/icons/network.png' />
-                        <div>Your network</div>
-                    </InnerWrapper>
-                    <RightButton>
-                        <img src='../../media/icons/user-plus.png'/>    
-                    </RightButton>
-                </Panel>
-                <Panel>
-                    <InnerWrapper>
-                        <CustomIconTop src='../../media/icons/publications.png' />
-                        <div>Your Publications</div>
-                    </InnerWrapper>
-                    <RightButton>
-                        <img src='../../media/icons/plus.png'/>    
-                    </RightButton>
-                </Panel>
+                    <Panel>
+                        <InnerWrapper>
+                            <CustomIconTop src='../../media/icons/network.png' />
+                            <div>Your network</div>
+                        </InnerWrapper>
+                        <RightButton>
+                            <img src='../../media/icons/user-plus.png' alt="User plus icon"/>    
+                        </RightButton>
+                    </Panel>
+                    <Panel>
+                        <InnerWrapper>
+                            <CustomIconTop src='../../media/icons/publications.png' />
+                            <div>Your Publications</div>
+                        </InnerWrapper>
+                        <RightButton>
+                            <img src='../../media/icons/plus.png' alt='Plus icon'/>    
+                        </RightButton>
+                    </Panel>
                 </BottonIcons>
             </TopCard>
             
