@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Wrapper} from '../../styledHelpers/Components';
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
+import useDropdown from 'react-dropdown-hook';
 
 import {ExpandedMenu} from './ExpandedMenu';
 
@@ -43,6 +44,13 @@ const LeftHomeIcon = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 40px;
+    margin-right: 70px;
+    border-radius: 5px;
+    
+    &:hover{
+        background-color: lightgrey;
+    }
 `;
 
 const InputWrapper = styled.div`
@@ -64,6 +72,7 @@ const CustomInput = styled.input`
 
 const RightIcons = styled.div`
     margin-right: 20px;
+    margin-left: 180px;
 `;
 
 const MiddleWrapper = styled.div`
@@ -72,20 +81,34 @@ const MiddleWrapper = styled.div`
     align-items: center;
 `;
 
+const MenuArrow = styled.img`
+  margin-left: 140px;
+  padding: 20px;
+`;
+
+
 export const TopBar: FC = () => {
+
+    const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+
+    const menuHandler = () =>{
+        toggleDropdown();
+    };
+
     return(
         <TopWrapper>
             <LeftWrapper>    
                 <CustomImg src='../../media/logo.png'/>
-                <LeftHomeIcon>
-                    <CustomIcon src='../../media/icons/house.png'/>
-                    <div>Home</div>
-                </LeftHomeIcon>
+                <LeftHomeIcon ref={wrapperRef} onClick={menuHandler}>
+                        <CustomIcon src='../../media/icons/house.png'/>
+                        <div>Home</div>
+                        <MenuArrow src ='../../media/icons/arrow-down.png'/>
+                    {dropdownOpen && <ExpandedMenu/>}
+                </LeftHomeIcon> 
             </LeftWrapper>
             <MiddleWrapper>
-                <ExpandedMenu></ExpandedMenu>
                 <InputWrapper> 
-                    <CustomInput type='text' defaultValue="Search LegalCluster"/>
+                    <CustomInput type='text' placeholder="Search LegalCluster"/>
                     <CustomIcon src='../../media/icons/search.png'/>
                 </InputWrapper>
             </MiddleWrapper>    

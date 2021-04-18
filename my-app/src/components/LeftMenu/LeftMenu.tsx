@@ -67,6 +67,17 @@ const RightButton = styled.button`
 const InnerWrapper = styled.div`
     display: flex;
     align-items: center;
+
+    & > a{
+        display: block;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+    }
+    & > a:hover{
+        color: ${Colors.blue};
+    }
 `;
 
 const BottonCard = styled.div`
@@ -74,15 +85,13 @@ const BottonCard = styled.div`
     width: 210px;
 `;
 
-fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(json => json.filter((user: any) => user.id===1)
-                           .map((userName: any) => userName.name));
-
 const UserHolder = styled.div`
+    & > a{
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
+    }
 `;
 
 const CustomImg = styled.div`
@@ -102,15 +111,16 @@ const UserCompany = styled.div`
     margin-top: 15px;
 `;
 
-
 export const LeftMenu: FC = () => {
     return(
         <Wrapper>
             <TopCard>
                 <UserHolder>
-                    <CustomImg/>
-                    <UserName>Elon Musk</UserName>
-                    <UserCompany>CEO - SpaceX</UserCompany>
+                    <a href="#">
+                        <CustomImg/>
+                        <UserName>Elon Musk</UserName>
+                        <UserCompany>CEO - SpaceX</UserCompany>
+                    </a>
                 </UserHolder>
                 
                 <BottonIcons>
@@ -137,16 +147,22 @@ export const LeftMenu: FC = () => {
             
             <BottonCard>
                 <InnerWrapper>
-                    <CustomIconBotton src='../../media/icons/publications.png' />
-                    <div>Publications</div>
+                    <a href="#">
+                        <CustomIconBotton src='../../media/icons/publications.png' />
+                        <div>Publications</div>
+                    </a>
                 </InnerWrapper>
                 <InnerWrapper>
-                    <CustomIconBotton src='../../media/icons/ecosystem.png' />
-                    <div>Ecosystem</div>
+                    <a href="#">
+                        <CustomIconBotton src='../../media/icons/ecosystem.png' />
+                        <div>Ecosystem</div>
+                    </a>    
                 </InnerWrapper> 
                 <InnerWrapper>
-                    <CustomIconBotton src='../../media/icons/entities2.png' />
-                    <div>Entities</div>
+                    <a href="#">
+                        <CustomIconBotton src='../../media/icons/entities2.png' />
+                        <div>Entities</div>
+                    </a> 
                 </InnerWrapper>   
             </BottonCard>
         </Wrapper>

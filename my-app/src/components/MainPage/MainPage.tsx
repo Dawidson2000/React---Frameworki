@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import {TopBar} from '../TopBar/TopBar';
 import {LeftMenu} from '../LeftMenu/LeftMenu';
+import { getSuggestedQuery } from '@testing-library/dom';
 
 const Wrap = styled.div`
     width: 100%;
@@ -19,7 +20,13 @@ const Content = styled.div`
     display: flex;
 `;
 
-const MainPage: FC = () => {
+async function getUser(): Promise<any>{
+    const userResponse = await fetch('https://jsonplaceholder.typicode.com/users/1');
+    const userData = await userResponse.json();
+    return userData;;
+}
+
+const MainPage: FC = () => {  
     return (
         <Wrap>
             <TopBar/>
@@ -29,16 +36,4 @@ const MainPage: FC = () => {
         </Wrap>
     )
 }
-
-/*function MainPage() {
-    return (
-        <Wrap>
-            <TopBar/>
-            <Content>
-                <div>content</div>
-            </Content>
-        </Wrap>
-    );
-  }*/
-
 export default MainPage;
