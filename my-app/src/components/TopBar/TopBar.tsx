@@ -28,31 +28,34 @@ const TopWrapper = styled(Wrapper)`
 const CustomImg = styled.img`
     width: 35px;
     height: auto;
-    margin-right: 30px;
-    margin-left: 20px;
-
-
+    
     ${media.phone`
-    margin-right: 5px;
-    margin-left: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
     `}
     ${media.tablet`
-    margin-right: 5px;
-    margin-left: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
     `}
+    ${media.desktop`
+        margin-right: 20px;
+        margin-left: 20px;
+        `}
 `;
 
 const CustomIcon = styled.img`
     width: 23px;
     height: 23px;
     color: black;
-    margin: 0 10px;
-
+    
     ${media.phone`
         margin: 0 5px;
     `}
     ${media.tablet`
         margin: 0 5px;
+    `}
+    ${media.desktop`
+        margin: 0 10px;
     `}
 `;
 
@@ -67,7 +70,7 @@ const LeftHomeIcon = styled.div`
     justify-content: center;
     align-items: center;
     height: 40px;
-    margin-right: 70px;
+    margin-right: 20px;
     border-radius: 5px;
     
     &:hover{
@@ -128,7 +131,7 @@ const CustomInput = styled.input`
         width: 180px;
     `}
     ${media.tablet`
-        width: 350px;
+        width: 500px;
     `}
 `;
 
@@ -137,14 +140,16 @@ const RightIcons = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 410px;
-
+    
     ${media.phone`
         width: 200px;
         padding-right: 5px;
     `}
     ${media.tablet`
         width: 200px;
+    `}
+    ${media.desktop`
+        width: 410px;
     `}
 `;
 
