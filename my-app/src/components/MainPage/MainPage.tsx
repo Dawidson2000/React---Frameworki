@@ -6,7 +6,7 @@ import {LeftMenu} from '../LeftMenu/LeftMenu';
 import { getSuggestedQuery } from '@testing-library/dom';
 
 const Wrap = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: #f5f7f9;
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Poppins:wght@500&display=swap');

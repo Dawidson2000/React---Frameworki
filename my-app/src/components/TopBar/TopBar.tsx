@@ -5,11 +5,12 @@ import {Wrapper} from '../../styledHelpers/Components';
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 import useDropdown from 'react-dropdown-hook';
+import {media} from '../../styledHelpers/Breakpoints';
 
 import {ExpandedMenu} from './ExpandedMenu';
 
 const TopWrapper = styled(Wrapper)`
-    width: 100%;
+    width: 100vw;
     height: 50px;
     background-color: ${Colors.white};
     font-size: ${fontSize[14]};
@@ -18,6 +19,10 @@ const TopWrapper = styled(Wrapper)`
     align-items: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     box-sizing: border-box;
+
+    ${media.tablet`
+        display: flex;
+    `}
 `;
 
 const CustomImg = styled.img`
@@ -25,6 +30,16 @@ const CustomImg = styled.img`
     height: auto;
     margin-right: 30px;
     margin-left: 20px;
+
+
+    ${media.phone`
+    margin-right: 5px;
+    margin-left: 5px;
+    `}
+    ${media.tablet`
+    margin-right: 5px;
+    margin-left: 5px;
+    `}
 `;
 
 const CustomIcon = styled.img`
@@ -32,6 +47,13 @@ const CustomIcon = styled.img`
     height: 23px;
     color: black;
     margin: 0 10px;
+
+    ${media.phone`
+        margin: 0 5px;
+    `}
+    ${media.tablet`
+        margin: 0 5px;
+    `}
 `;
 
 const LeftWrapper = styled.div`
@@ -51,6 +73,17 @@ const LeftHomeIcon = styled.div`
     &:hover{
         background-color: lightgrey;
     }
+
+
+    ${media.phone`
+        display: none;
+    `}
+    ${media.tablet`
+        display: none;
+    `}
+    ${media.desktop`
+        display: flex;
+    `}
 `;
 
 const InputWrapper = styled.div`
@@ -59,7 +92,23 @@ const InputWrapper = styled.div`
     align-items: center;
     border: 1px solid lightgrey;
     padding: 3px; 
-    width: 500px;
+    
+    ${media.phone`
+        width: 120px;
+    `}
+    ${media.phoneM`
+        width: 180px;
+    `}
+    ${media.phoneXL`
+        width: 220px;
+    `}
+    ${media.tablet`
+        width: 400px;
+    `}
+    ${media.desktop`
+        width: 500px;
+    `}
+
 `;
 
 const CustomInput = styled.input`
@@ -67,12 +116,36 @@ const CustomInput = styled.input`
     width: 450px;
     outline: none;
     text-align: center;
-    color: lightgray;
+    color: black;
+
+    ${media.phone`
+        width: 60px;
+    `}
+    ${media.phoneM`
+        width: 150px;
+    `}
+    ${media.phoneXL`
+        width: 180px;
+    `}
+    ${media.tablet`
+        width: 350px;
+    `}
 `;
 
 const RightIcons = styled.div`
-    margin-right: 20px;
-    margin-left: 180px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 410px;
+
+    ${media.phone`
+        width: 200px;
+        padding-right: 5px;
+    `}
+    ${media.tablet`
+        width: 200px;
+    `}
 `;
 
 const MiddleWrapper = styled.div`
@@ -84,6 +157,25 @@ const MiddleWrapper = styled.div`
 const MenuArrow = styled.img`
   margin-left: 140px;
   padding: 20px;
+`;
+
+const MenuIcon = styled.img`
+    width: 23px;
+    height: 23px;
+    margin: 6px;
+    color: black;
+    
+
+    ${media.phone`
+        display: block;
+    `}
+    ${media.tablet`
+        display: block;
+    `}
+
+    ${media.desktop`
+        display: none;
+    `}
 `;
 
 
@@ -116,7 +208,9 @@ export const TopBar: FC = () => {
                 <CustomIcon src='../../media/icons/house.png'/>
                 <CustomIcon src='../../media/icons/comments.png'/>
                 <CustomIcon src='../../media/icons/bell.png'/>
+                <MenuIcon src='../../media/icons/menu.png'/>
             </RightIcons>
+           
         </TopWrapper>
     );
 };   
