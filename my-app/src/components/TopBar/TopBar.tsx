@@ -10,7 +10,6 @@ import {media} from '../../styledHelpers/Breakpoints';
 import {ExpandedMenu} from './ExpandedMenu';
 
 const TopWrapper = styled(Wrapper)`
-    width: 100vw;
     height: 50px;
     background-color: ${Colors.white};
     font-size: ${fontSize[14]};
@@ -19,10 +18,6 @@ const TopWrapper = styled(Wrapper)`
     align-items: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     box-sizing: border-box;
-
-    ${media.tablet`
-        display: flex;
-    `}
 `;
 
 const CustomImg = styled.img`

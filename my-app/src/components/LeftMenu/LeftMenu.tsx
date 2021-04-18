@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 
+import {media} from '../../styledHelpers/Breakpoints';
+
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -83,6 +85,13 @@ const InnerWrapper = styled.div`
 const BottonCard = styled.div`
     margin: 0 20px 20px 20px;
     width: 210px;
+
+    ${media.phoneM`
+        display: none;
+    `}
+    ${media.tablet`
+        display: block;
+    `}
 `;
 
 const UserHolder = styled.div`
