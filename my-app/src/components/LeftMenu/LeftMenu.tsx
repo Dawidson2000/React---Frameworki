@@ -120,15 +120,20 @@ const UserCompany = styled.div`
     margin-top: 15px;
 `;
 
-export const LeftMenu: FC = () => {
+export interface LeftMenuProps{
+    user: any,
+    companyName: string
+}
+
+export const LeftMenu: FC<LeftMenuProps> = (props) => {
     return(
         <Wrapper>
             <TopCard>
                 <UserHolder>
                     <a href="#">
                         <CustomImg/>
-                        <UserName>Elon Musk</UserName>
-                        <UserCompany>CEO - SpaceX</UserCompany>
+                        <UserName>{props.user.name}</UserName>
+                        <UserCompany>{props.companyName}</UserCompany>
                     </a>
                 </UserHolder>
                 

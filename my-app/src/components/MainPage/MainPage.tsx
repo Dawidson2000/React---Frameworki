@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 
 import {TopBar} from '../TopBar/TopBar';
@@ -43,25 +43,38 @@ const InnerWrapper = styled.div`
     padding: 20px;
 `;
 
-async function getUser(): Promise<any>{
-    const userResponse = await fetch('https://jsonplaceholder.typicode.com/users/1');
-    const userData = await userResponse.json();
-    return userData;;
-}
+class MainPage extends Component { 
+    
+    state = {
+        user: {},
+        companyName: ""
+    }
 
-const MainPage: FC = () => {  
-    return (
-        <Wrapper>
-            <TopBar/>
-            <Content>
-                <LeftMenu/>
-                <InnerWrapper>
-                    <Publications/>
-                    <Workspaces/>
-                    <ResumeYourWork/>
-                </InnerWrapper>
-            </Content>
-        </Wrapper>
-    )
+    componentDidMount(){
+        fetch('https://jsonplaceholder.typicode.com/users/1')
+        .then(response => response.json())
+        .then(data => {        
+            this.setState({
+                user: data,
+                companyName: data.company.name
+            })
+        });
+    }
+    
+    render(){      
+        return(
+            <Wrapper>
+                <TopBar/>
+                <Content>
+                    <LeftMenu companyName ={this.state.companyName} user={this.state.user as {}}/>
+                    <InnerWrapper>
+                        <Publications/>
+                        <Workspaces/>
+                        <ResumeYourWork/>
+                    </InnerWrapper>
+                </Content>
+            </Wrapper>
+        )
+    }    
 }
 export default MainPage;
