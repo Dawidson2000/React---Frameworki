@@ -6,10 +6,17 @@ import {LeftMenu} from '../LeftMenu/LeftMenu';
 import {Publications} from '../Publications/Publications';
 import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {Workspaces} from '../Workspaces/Workspaces';
-import { getSuggestedQuery } from '@testing-library/dom';
+import {Entities} from '../Entities/Entities';
+import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
-import {Reset} from 'styled-reset';
+
+import{
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
 
 const Wrapper = styled.div`
     min-height: 100vh;
@@ -41,6 +48,11 @@ const InnerWrapper = styled.div`
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
 `;
 
 class MainPage extends Component { 
@@ -63,17 +75,33 @@ class MainPage extends Component {
     
     render(){      
         return(
-            <Wrapper>
-                <TopBar/>
-                <Content>
-                    <LeftMenu companyName ={this.state.companyName} user={this.state.user as {}}/>
-                    <InnerWrapper>
-                        <Publications/>
-                        <Workspaces/>
-                        <ResumeYourWork/>
-                    </InnerWrapper>
-                </Content>
-            </Wrapper>
+            <Router>
+                <Wrapper>
+                    <TopBar/>
+                    <Content>
+                        <LeftMenu companyName ={this.state.companyName} user={this.state.user as {}}/>
+                        <Switch>
+                            <Route path="/TestPage" exact>
+                                <InnerWrapper>
+                                    <TestPage/>
+                                </InnerWrapper>
+                            </Route>
+                            <Route path="/Entities" exact>
+                                <InnerWrapper>
+                                    <Entities/>
+                                </InnerWrapper>
+                            </Route>
+                            <Route path="/" exact>
+                                <InnerWrapper>
+                                    <Publications/>
+                                    <Workspaces/>
+                                    <ResumeYourWork/>
+                                </InnerWrapper>
+                            </Route>
+                        </Switch>
+                    </Content>
+                </Wrapper>
+            </Router>
         )
     }    
 }

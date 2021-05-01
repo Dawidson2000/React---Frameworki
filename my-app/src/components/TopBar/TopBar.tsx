@@ -8,6 +8,12 @@ import useDropdown from 'react-dropdown-hook';
 import {media} from '../../styledHelpers/Breakpoints';
 
 import {ExpandedMenu} from './ExpandedMenu';
+import{
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
 
 const TopWrapper = styled(Wrapper)`
     height: 50px;
@@ -90,22 +96,21 @@ const InputWrapper = styled.div`
     align-items: center;
     border: 1px solid lightgrey;
     padding: 3px; 
+
+    width: 80%;
     
-    ${media.phone`
-        width: 120px;
-    `}
-    ${media.phoneM`
-        width: 180px;
-    `}
-    ${media.phoneXL`
-        width: 220px;
-    `}
     ${media.tablet`
-        width: 400px;
+        width: 70%;
     `}
     ${media.desktop`
-        width: 500px;
+        width: 65%;
+    `}    
+    ${media.desktopLegacy`
+        width: 55%;
     `}
+    ${media.giant`
+        width: 50%;
+    `} 
 
 `;
 
@@ -116,18 +121,7 @@ const CustomInput = styled.input`
     text-align: center;
     color: black;
 
-    ${media.phone`
-        width: 60px;
-    `}
-    ${media.phoneM`
-        width: 150px;
-    `}
-    ${media.phoneXL`
-        width: 180px;
-    `}
-    ${media.tablet`
-        width: 500px;
-    `}
+    width: 95%;
 `;
 
 const RightIcons = styled.div`
@@ -152,11 +146,17 @@ const MiddleWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 80%;
 `;
 
 const MenuArrow = styled.img`
   margin-left: 140px;
   padding: 20px;
+  transition: 0.1s;
+
+  &:hover{
+      transform: scale(1.3);
+  }
 `;
 
 const MenuIcon = styled.img`
@@ -191,24 +191,24 @@ export const TopBar: FC = () => {
         <TopWrapper>
             <LeftWrapper>    
                 <CustomImg src='../../media/logo.png'/>
-                <LeftHomeIcon ref={wrapperRef} onClick={menuHandler}>
-                        <CustomIcon src='../../media/icons/house.png'/>
+                    <LeftHomeIcon ref={wrapperRef}>
+                        <CustomIcon src='../../media/icons/house.svg'/>
                         <div>Home</div>
-                        <MenuArrow src ='../../media/icons/arrow-down.png'/>
-                    {dropdownOpen && <ExpandedMenu/>}
-                </LeftHomeIcon> 
+                        <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
+                        {dropdownOpen && <ExpandedMenu/>}
+                    </LeftHomeIcon>        
             </LeftWrapper>
             <MiddleWrapper>
                 <InputWrapper> 
                     <CustomInput type='text' placeholder="Search LegalCluster"/>
-                    <CustomIcon src='../../media/icons/search.png'/>
+                    <CustomIcon src='../../media/icons/search.svg'/>
                 </InputWrapper>
             </MiddleWrapper>    
             <RightIcons>
-                <CustomIcon src='../../media/icons/house.png'/>
-                <CustomIcon src='../../media/icons/comments.png'/>
-                <CustomIcon src='../../media/icons/bell.png'/>
-                <MenuIcon src='../../media/icons/menu.png'/>
+                <Link to="/"><CustomIcon src='../../media/icons/house.svg'/></Link>
+                <Link to="/TestPage"><CustomIcon src='../../media/icons/comments.svg'/></Link>
+                <Link to="/TestPage"><CustomIcon src='../../media/icons/bell.svg'/></Link>
+                <MenuIcon src='../../media/icons/menu.png' />
             </RightIcons>
            
         </TopWrapper>

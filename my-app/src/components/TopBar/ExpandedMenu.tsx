@@ -1,9 +1,11 @@
-import { profile } from 'node:console';
-import { FC } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
+
+import {WorkspacesTab} from '../Workspaces/WorkspacesTab';
 
 const Wrapper = styled.div`
     width: 270px;
@@ -16,6 +18,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: left;
     border: 1px solid lightgray;
+    z-index: 1;
 
     & > p{
         margin: 6px 8px;
@@ -55,6 +58,25 @@ const List = styled.ul`
     }
 
     & > li:hover p{
+        color: ${Colors.blue}; 
+    }
+`;
+const Workspace = styled.div`
+    & > a{
+        margin-left: 8px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+    }
+    & > a > p{
+        margin-left: 15px;
+    }
+
+    & > a:hover p{
         color: ${Colors.blue}; 
     }
 `;
@@ -110,8 +132,10 @@ const Logout = styled.div`
     cursor: pointer;
     transition-duration: 0.15s;
 
-    & > p{
+    & > a{
         margin-left: 20px;
+        text-decoration: none;
+        color: ${Colors.grey};
     }
     &:hover{
         color: black;
@@ -123,32 +147,57 @@ const Logout = styled.div`
 `;
 
 export const ExpandedMenu: FC = () => {
+
+    const [inputText, setInputText] = useState<string>('');
+
+    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const text = e.target.value;
+        setInputText(text);
+    }
+    
+    const workspaces = WorkspacesTab.map((workspace: any, index: number) => {
+        let title = workspace[0].toString();
+        let link = workspace[1].toString();
+        return(    
+        <Workspace key={index}>
+            {title.toLowerCase().includes(inputText.toLowerCase()) &&
+            <Link to="/TestPage"><IconWrapper><CustomIcon src={link}/></IconWrapper><p>{title}</p></Link>} 
+        </Workspace>
+      )})
+
     return(   
         <Wrapper>
-            <FilterInput placeholder="Filter..."/>
+            <FilterInput placeholder="Filter..." type="text" value={inputText} onChange={inputHandler}/>
             <p>Platform</p>
             <List>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/house2.png'/></IconWrapper><p>Home</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/publications.png'/></IconWrapper><p>Publications</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/people.png'/></IconWrapper><p>People</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/entities2.png'/></IconWrapper><p>Entities</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/administration.png'/></IconWrapper><p>Administration</p></a></li>
+                {'Home'.toLowerCase().includes(inputText.toLowerCase()) &&
+                <li><Link to="/"><IconWrapper><CustomIcon src='../../media/icons/house2.svg'/></IconWrapper><p>Home</p></Link></li>}
+                
+                {'Publications'.toLowerCase().includes(inputText.toLowerCase()) &&
+                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/publications.svg'/></IconWrapper><p>Publications</p></Link></li>}
+                
+                {'People'.toLowerCase().includes(inputText.toLowerCase()) &&
+                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/people.svg'/></IconWrapper><p>People</p></Link></li>}
+                
+                {'Entities'.toLowerCase().includes(inputText.toLowerCase()) &&
+                <li><Link to="/Entities"><IconWrapper><CustomIcon src='../../media/icons/entities2.svg'/></IconWrapper><p>Entities</p></Link></li>}
+                
+                {'Administration'.toLowerCase().includes(inputText.toLowerCase()) &&
+                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/administration.svg'/></IconWrapper><p>Administration</p></Link></li>}
             </List>
+            
             <p>Workspaces</p>
             <List>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/house2.png'/></IconWrapper><p>Client contract</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/publications.png'/></IconWrapper><p>Supplier contract</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/people.png'/></IconWrapper><p>Corporate</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/entities2.png'/></IconWrapper><p>Group Norms</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/administration.png'/></IconWrapper><p>Real estate contracts</p></a></li>
+                {workspaces}
             </List>
             <Line/>
+            
             <p>Account</p>
             <Profile>
                 <ProfileImage/>
                 <ProfileData>
                     <p>Elon Musk</p>
-                    <a href="#">See profile</a>
+                    <Link to="/TestPage">See profile</Link>
                 </ProfileData>    
             </Profile>
             <List>
@@ -158,7 +207,7 @@ export const ExpandedMenu: FC = () => {
             <Line/>
             <Logout>
                 <CustomIcon src='../../media/icons/logout.png'/>
-                <p>Logout</p>
+                <Link to="/TestPage"><p>Logout</p></Link>
             </Logout>
         </Wrapper>    
     )

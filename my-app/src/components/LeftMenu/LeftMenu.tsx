@@ -1,5 +1,11 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import{
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
 
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
@@ -126,59 +132,59 @@ export interface LeftMenuProps{
 }
 
 export const LeftMenu: FC<LeftMenuProps> = (props) => {
-    return(
-        <Wrapper>
-            <TopCard>
-                <UserHolder>
-                    <a href="#">
-                        <CustomImg/>
-                        <UserName>{props.user.name}</UserName>
-                        <UserCompany>{props.companyName}</UserCompany>
-                    </a>
-                </UserHolder>
+    return(     
+            <Wrapper>
+                <TopCard>
+                    <UserHolder>
+                        <Link to="/TestPage">
+                            <CustomImg/>
+                            <UserName>{props.user.name}</UserName>
+                            <UserCompany>{props.companyName}</UserCompany>
+                        </Link>
+                    </UserHolder>
+                    
+                    <BottonIcons>
+                        <Panel>
+                            <InnerWrapper>
+                                <CustomIconTop src='../../media/icons/network.svg' />
+                                <div>Your network</div>
+                            </InnerWrapper>
+                            <RightButton>
+                                <img src='../../media/icons/user-plus.svg' alt="User plus icon"/>    
+                            </RightButton>
+                        </Panel>
+                        <Panel>
+                            <InnerWrapper>
+                                <CustomIconTop src='../../media/icons/publications.svg' />
+                                <div>Your Publications</div>
+                            </InnerWrapper>
+                            <RightButton>
+                                <img src='../../media/icons/plus.svg' alt='Plus icon'/>    
+                            </RightButton>
+                        </Panel>
+                    </BottonIcons>
+                </TopCard>
                 
-                <BottonIcons>
-                    <Panel>
-                        <InnerWrapper>
-                            <CustomIconTop src='../../media/icons/network.png' />
-                            <div>Your network</div>
-                        </InnerWrapper>
-                        <RightButton>
-                            <img src='../../media/icons/user-plus.png' alt="User plus icon"/>    
-                        </RightButton>
-                    </Panel>
-                    <Panel>
-                        <InnerWrapper>
-                            <CustomIconTop src='../../media/icons/publications.png' />
-                            <div>Your Publications</div>
-                        </InnerWrapper>
-                        <RightButton>
-                            <img src='../../media/icons/plus.png' alt='Plus icon'/>    
-                        </RightButton>
-                    </Panel>
-                </BottonIcons>
-            </TopCard>
-            
-            <BottonCard>
-                <InnerWrapper>
-                    <a href="#">
-                        <CustomIconBotton src='../../media/icons/publications.png' />
-                        <div>Publications</div>
-                    </a>
-                </InnerWrapper>
-                <InnerWrapper>
-                    <a href="#">
-                        <CustomIconBotton src='../../media/icons/ecosystem.png' />
-                        <div>Ecosystem</div>
-                    </a>    
-                </InnerWrapper> 
-                <InnerWrapper>
-                    <a href="#">
-                        <CustomIconBotton src='../../media/icons/entities2.png' />
-                        <div>Entities</div>
-                    </a> 
-                </InnerWrapper>   
-            </BottonCard>
-        </Wrapper>
+                <BottonCard>
+                    <InnerWrapper>
+                        <Link to="/TestPage">
+                            <CustomIconBotton src='../../media/icons/publications.svg' />
+                            <div>Publications</div>
+                        </Link> 
+                    </InnerWrapper>
+                    <InnerWrapper>
+                        <Link to="/TestPage">
+                            <CustomIconBotton src='../../media/icons/ecosystem.svg' />
+                            <div>Ecosystem</div>
+                        </Link>    
+                    </InnerWrapper> 
+                    <InnerWrapper>
+                        <Link to="/Entities">
+                            <CustomIconBotton src='../../media/icons/entities2.svg' />
+                            <div>Entities</div>
+                        </Link> 
+                    </InnerWrapper>   
+                </BottonCard>
+            </Wrapper>       
     )
-}
+}   
