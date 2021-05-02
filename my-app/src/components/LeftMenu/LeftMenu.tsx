@@ -92,7 +92,7 @@ const BottonCard = styled.div`
     margin: 0 20px 20px 20px;
     width: 210px;
 
-    ${media.phoneM`
+    ${media.phone`
         display: none;
     `}
     ${media.tablet`

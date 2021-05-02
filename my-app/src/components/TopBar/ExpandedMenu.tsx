@@ -6,6 +6,7 @@ import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 
 import {WorkspacesTab} from '../Workspaces/WorkspacesTab';
+import {media} from '../../styledHelpers/Breakpoints';
 
 const Wrapper = styled.div`
     width: 270px;
@@ -19,12 +20,17 @@ const Wrapper = styled.div`
     align-items: left;
     border: 1px solid lightgray;
     z-index: 1;
+    transform: translateX(5px);
 
     & > p{
         margin: 6px 8px;
         font-size: ${fontSize[12]};
         color: ${Colors.grey};
     }
+
+    ${media.desktop`
+    transform: translateX(0px);
+    `}
 `;
 
 const FilterInput = styled.input`

@@ -125,20 +125,20 @@ const CustomInput = styled.input`
 `;
 
 const RightIcons = styled.div`
-    padding-right: 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     
     ${media.phone`
         width: 200px;
-        padding-right: 5px;
+        padding-right: 0px;
     `}
     ${media.tablet`
         width: 200px;
     `}
     ${media.desktop`
         width: 410px;
+        padding-right: 20px;
     `}
 `;
 
@@ -185,18 +185,25 @@ export const TopBar: FC = () => {
 
     const menuHandler = () =>{
         toggleDropdown();
+        isTabletViewActive();
     };
 
+    const isTabletViewActive = () =>{
+        console.log(window.innerWidth);
+        if(window.innerWidth >= 1024) {console.log("f"); return false}
+        {console.log("t"); return true}
+    }
+
     return(
-        <TopWrapper>
+        <TopWrapper ref={wrapperRef}>
             <LeftWrapper>    
                 <CustomImg src='../../media/logo.png'/>
-                    <LeftHomeIcon ref={wrapperRef}>
-                        <CustomIcon src='../../media/icons/house.svg'/>
-                        <div>Home</div>
-                        <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
-                        {dropdownOpen && <ExpandedMenu/>}
-                    </LeftHomeIcon>        
+                <LeftHomeIcon>
+                    <CustomIcon src='../../media/icons/house.svg'/>
+                    <div>Home</div>
+                    <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
+                    {dropdownOpen && <ExpandedMenu/>}
+                </LeftHomeIcon>        
             </LeftWrapper>
             <MiddleWrapper>
                 <InputWrapper> 
@@ -208,9 +215,9 @@ export const TopBar: FC = () => {
                 <Link to="/"><CustomIcon src='../../media/icons/house.svg'/></Link>
                 <Link to="/TestPage"><CustomIcon src='../../media/icons/comments.svg'/></Link>
                 <Link to="/TestPage"><CustomIcon src='../../media/icons/bell.svg'/></Link>
-                <MenuIcon src='../../media/icons/menu.png' />
-            </RightIcons>
-           
+                <MenuIcon onClick={menuHandler} src='../../media/icons/menu.png' />
+                {dropdownOpen && isTabletViewActive() && <ExpandedMenu/>}
+            </RightIcons>          
         </TopWrapper>
     );
 };   

@@ -12,10 +12,14 @@ const CustomIcon = styled.img`
     width: 50%;
     height: auto;
 `;
-const CustomImg = styled.div`
+const ImgWrapper = styled.div`
     height: 40%;
     width: 100%;
-    background-color: grey;
+    overflow: hidden;
+`;
+const CustomImg = styled.img`
+    height: auto;
+    width: 100%;
 `;
 
 const MiddleWrapper = styled.div`
@@ -77,11 +81,18 @@ export class WorkspaceCard extends Component<WorkspaceProps> {
         else if(this.props.title.toLocaleLowerCase().includes('corporate')) return <span>Corporate</span>
         else return <span>Norms</span>
     }
+    setPhoto(){
+        if(this.props.title.toLocaleLowerCase().includes('contract')) return '../../media/photo/contract.jpg';
+        else if(this.props.title.toLocaleLowerCase().includes('corporate')) return '../../media/photo/corporate.jpg';
+        else return '../../media/photo/norms.jpg'
+    }
 
     render() {
       return (
         <Wrapper>
-            <CustomImg/>
+            <ImgWrapper>
+                <CustomImg src={this.setPhoto()}/>
+            </ImgWrapper>
             <Link to="/TestPage">
                 <MiddleWrapper>
                     <IconWrapper>
