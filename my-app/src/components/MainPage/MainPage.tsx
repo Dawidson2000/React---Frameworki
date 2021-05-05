@@ -10,6 +10,7 @@ import {Entities} from '../Entities/Entities';
 import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
+import {user} from '../../media/Api';
 
 import{
     BrowserRouter as Router,

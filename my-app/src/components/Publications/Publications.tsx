@@ -7,6 +7,8 @@ import {media} from '../../styledHelpers/Breakpoints';
 
 import {Publication} from './Publication';
 
+import {user} from '../../media/Api';
+
 const Wrapper = styled.div`
     background-color: white;
     min-height: 300px;
@@ -83,19 +85,19 @@ export const Publications: FC = () => {
         <Wrapper>
             <LeftPhoto>
                 <TextContainer>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent viverra orci non lacinia.</p>
+                    <p>{user.post}</p>
                     <InfoContainer>
                         <span> 7 jan. 2020</span>
                         <ProfilePhotoWrapper/>
-                        <span>John Doe</span>
+                        <span>{user.name}</span>
                     </InfoContainer>    
                 </TextContainer>
             </LeftPhoto>           
             <PublicationsContainer>
                 <h1>Latest publications</h1>
-                <Publication/>
-                <Publication/>
-                <Publication/>
+                <Publication name={user.name} title={user.post}/>
+                <Publication name={user.name} title={user.post}/>
+                <Publication name={user.name} title={user.post}/>
                 <Link to="/TestPage">See more publications</Link>
             </PublicationsContainer>
         </Wrapper>
