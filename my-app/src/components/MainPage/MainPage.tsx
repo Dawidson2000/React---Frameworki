@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import {TopBar} from '../TopBar/TopBar';
 import {LeftMenu} from '../LeftMenu/LeftMenu';
-import {Publications} from '../Publications/Publications';
+import Publications from '../Publications/Publications';
 import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {Workspaces} from '../Workspaces/Workspaces';
 import {Entities} from '../Entities/Entities';
@@ -11,6 +11,9 @@ import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
 import {user} from '../../media/Api';
+
+import store from '../../store'
+import { Provider } from 'react-redux'
 
 import{
     BrowserRouter as Router,
@@ -26,11 +29,15 @@ const Wrapper = styled.div`
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     box-sizing: border-box;
+    width: 100%;
+    background-color: #f5f7f9;
 `;
 
 const Content = styled.div`
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1300px;
     display: flex;
-
     ${media.phone`
         flex-direction: column;
         align-items: center;
@@ -59,7 +66,7 @@ const InnerWrapper = styled.div`
 class MainPage extends Component { 
     
     state = {
-        user: {},
+        username: '',
         companyName: ""
     }
 
@@ -68,7 +75,7 @@ class MainPage extends Component {
         .then(response => response.json())
         .then(data => {        
             this.setState({
-                user: data,
+                username: data.name,
                 companyName: data.company.name
             })
         });
@@ -76,33 +83,35 @@ class MainPage extends Component {
     
     render(){      
         return(
-            <Router>
-                <Wrapper>
-                    <TopBar/>
-                    <Content>
-                        <LeftMenu companyName ={this.state.companyName} user={this.state.user as {}}/>
-                        <Switch>
-                            <Route path="/TestPage" exact>
-                                <InnerWrapper>
-                                    <TestPage/>
-                                </InnerWrapper>
-                            </Route>
-                            <Route path="/Entities" exact>
-                                <InnerWrapper>
-                                    <Entities/>
-                                </InnerWrapper>
-                            </Route>
-                            <Route path="/" exact>
-                                <InnerWrapper>
-                                    <Publications/>
-                                    <Workspaces/>
-                                    <ResumeYourWork/>
-                                </InnerWrapper>
-                            </Route>
-                        </Switch>
-                    </Content>
-                </Wrapper>
-            </Router>
+            <Provider store={store}>
+                <Router>
+                    <Wrapper>               
+                            <TopBar/>
+                            <Content>
+                                <LeftMenu companyName ={this.state.companyName} username={this.state.username}/>
+                                <Switch>
+                                    <Route path="/TestPage" exact>
+                                        <InnerWrapper>
+                                            <TestPage/>
+                                        </InnerWrapper>
+                                    </Route>
+                                    <Route path="/Entities" exact>
+                                        <InnerWrapper>
+                                            <Entities/>
+                                        </InnerWrapper>
+                                    </Route>
+                                    <Route path="/" exact>
+                                        <InnerWrapper>
+                                            <Publications username={this.state.username}/>
+                                            <Workspaces/>
+                                            <ResumeYourWork/>
+                                        </InnerWrapper>
+                                    </Route>
+                                </Switch>
+                            </Content>
+                    </Wrapper>
+                </Router>
+            </Provider>
         )
     }    
 }

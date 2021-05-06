@@ -127,7 +127,7 @@ const UserCompany = styled.div`
 `;
 
 export interface LeftMenuProps{
-    user: any,
+    username: string,
     companyName: string
 }
 
@@ -138,7 +138,7 @@ export const LeftMenu: FC<LeftMenuProps> = (props) => {
                     <UserHolder>
                         <Link to="/TestPage">
                             <CustomImg/>
-                            <UserName>{props.user.name}</UserName>
+                            <UserName>{props.username}</UserName>
                             <UserCompany>{props.companyName}</UserCompany>
                         </Link>
                     </UserHolder>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Component } from 'react';
 import styled from 'styled-components';
 import {fontSize} from '../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
@@ -8,12 +8,12 @@ import {media} from '../../styledHelpers/Breakpoints';
 import {Publication} from './Publication';
 
 import {user} from '../../media/Api';
+import postsReducer from '../../Api/posts';
 
 const Wrapper = styled.div`
     background-color: white;
     min-height: 300px;
     margin-bottom: 10px;
-    margin-right: 15px;
     width: 100%; 
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -21,7 +21,6 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-
     ${media.desktop`
         flex-direction: row;
     `}
@@ -46,8 +45,17 @@ const TextContainer = styled.div`
     bottom: 0;
     line-height: 20px;
     
-    & > p{
-        margin: 0 10px;
+    & > a{
+        text-decoration: none;
+    }
+    & > a > p {
+        padding: 0 10px;
+        color: white;
+        transition: 0.2s;
+
+        &:hover{
+            background-color: hsla(0, 0%, 0%, 0.2);            
+        }
     }
 `;
 const InfoContainer = styled.div`
@@ -55,7 +63,6 @@ const InfoContainer = styled.div`
     align-items: center;
     font-size: ${fontSize[12]};
     font-weight: 200;
-
     & > span{
         margin: 10px;
     }
@@ -80,26 +87,56 @@ const PublicationsContainer = styled.div`
     }
 `;
 
-export const Publications: FC = () => {  
-    return (
-        <Wrapper>
-            <LeftPhoto>
-                <TextContainer>
-                    <p>{user.post}</p>
-                    <InfoContainer>
-                        <span> 7 jan. 2020</span>
-                        <ProfilePhotoWrapper/>
-                        <span>{user.name}</span>
-                    </InfoContainer>    
-                </TextContainer>
-            </LeftPhoto>           
-            <PublicationsContainer>
-                <h1>Latest publications</h1>
-                <Publication name={user.name} title={user.post}/>
-                <Publication name={user.name} title={user.post}/>
-                <Publication name={user.name} title={user.post}/>
-                <Link to="/TestPage">See more publications</Link>
-            </PublicationsContainer>
-        </Wrapper>
-    )
+export interface PublicationsProps{
+    username: string,
 }
+
+class Publications extends Component<PublicationsProps> { 
+    
+   state = {
+        posts: [],
+    }
+
+    async componentDidMount(){
+        /* //fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+        fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+        .then((response) => response.json())
+        .then((data) =>{ 
+            this.setState({
+                posts: data,
+            })
+            console.log("user.posts")
+        });*/
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts?userId=1');
+        const json = await res.json();
+        
+        this.setState({
+            posts: [json[0].title, json[1].title, json[2].title, json[3].title]
+        })
+    }
+
+    render(){
+        return (
+            <Wrapper>
+                <LeftPhoto>
+                    <TextContainer>
+                        <Link to="/TestPage"><p>{this.state.posts[0]}</p></Link>
+                        <InfoContainer>
+                            <span> 7 jan. 2020</span>
+                            <ProfilePhotoWrapper/>
+                            <span>{user.name}</span>
+                        </InfoContainer>    
+                    </TextContainer>
+                </LeftPhoto>           
+                <PublicationsContainer>
+                    <h1>Latest publications</h1>
+                    <Publication name={this.props.username} title={this.state.posts[1]}/>
+                    <Publication name={this.props.username} title={this.state.posts[2]}/>
+                    <Publication name={this.props.username} title={this.state.posts[3]}/>
+                    <Link to="/TestPage">See more publications</Link>
+                </PublicationsContainer>
+            </Wrapper>
+        )
+    }
+}
+export default Publications;

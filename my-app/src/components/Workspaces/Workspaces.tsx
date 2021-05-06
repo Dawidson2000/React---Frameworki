@@ -35,10 +35,15 @@ const Content = styled.div`
     margin: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.15s;
 
     ${media.phoneM`
     width: 270px;
     `}
+
+    &:hover{
+      transform: scale(0.95);
+    }
 `;
 
 const StyledSlider = styled(Slider)`
