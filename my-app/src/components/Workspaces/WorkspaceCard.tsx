@@ -7,6 +7,8 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
+    background-color: white;
+    border-radius: 5px;
 `;
 const CustomIcon = styled.img`
     width: 50%;
@@ -16,6 +18,7 @@ const ImgWrapper = styled.div`
     height: 40%;
     width: 100%;
     overflow: hidden;
+    border-radius: 5px;
 `;
 const CustomImg = styled.img`
     height: auto;

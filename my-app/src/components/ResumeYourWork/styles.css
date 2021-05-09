@@ -1,0 +1,34 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    cursor: pointer;
+}
+  
+.pagination a {
+    padding: 10px;
+    color: #46a2ce;
+    font-size: 13px;
+}
+
+.pagination a:hover {
+    color: #3780a1;
+}
+  
+.pagination__link {
+    font-weight: bold;
+}
+
+.pagination__link:hover {
+    color: #3780a1;
+}
+  
+.pagination__link--active a {
+    color: black;
+    font-weight: 800;
+}
+  
+.pagination__link--disabled a {
+    color: lightgray;
+}
+  

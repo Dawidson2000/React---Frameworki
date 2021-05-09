@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     padding: 0px;
 
     ${media.phoneXL`
-      padding: 30px;
+      padding: 0px 30px 30px 30px; 
     `}
 
     & > h2{
