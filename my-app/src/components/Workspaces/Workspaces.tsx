@@ -38,7 +38,7 @@ const Content = styled.div`
     transition: 0.15s;
 
     ${media.phoneM`
-    width: 270px;
+      width: 270px;
     `}
 
     &:hover{

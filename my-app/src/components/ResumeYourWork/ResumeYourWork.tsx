@@ -8,6 +8,7 @@ import { runInThisContext } from 'node:vm';
 import "./styles.css";
 import useDropdown from 'react-dropdown-hook';
 import {ExpandedFollow} from './ExpandedFollow';
+import {media} from '../../styledHelpers/Breakpoints';
 
 const Wrapper = styled.div`
     margin-bottom: 10px;
@@ -86,6 +87,20 @@ const HeaderWrapper = styled.div`
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
+
+    & > h1{
+        margin: 15px;
+    }
+
+    ${media.tablet`
+        flex-direction: row;
+
+        & > h1{
+            margin: 0;
+        }
+
+    `}
 `;
 const InputWrapper = styled.div`
     display: flex;
