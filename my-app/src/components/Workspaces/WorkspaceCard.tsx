@@ -96,7 +96,12 @@ export class WorkspaceCard extends Component<WorkspaceProps> {
             <ImgWrapper>
                 <CustomImg src={this.setPhoto()}/>
             </ImgWrapper>
-            <Link to="/TestPage">
+            <Link to={{
+            pathname: "/Workspace",
+            state: {title: this.props.title,
+                    iconLink: this.props.iconLink,
+                    photoLink: this.setPhoto()},
+            }}>
                 <MiddleWrapper>
                     <IconWrapper>
                         <CustomIcon src={this.props.iconLink}/> 

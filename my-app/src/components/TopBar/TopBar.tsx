@@ -165,8 +165,11 @@ const MenuIcon = styled.img`
     height: 23px;
     margin: 6px;
     color: black;
-    
 
+    &:hover{
+        cursor: pointer;
+    }
+    
     ${media.phone`
         display: block;
     `}

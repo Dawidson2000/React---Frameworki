@@ -6,6 +6,7 @@ import{
     Route,
     Link
 } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
@@ -70,6 +71,14 @@ const RightButton = styled.button`
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+    &:hover{
+        cursor: pointer;
+        box-shadow: 0 2px 5px 0 rgba(23, 26, 182, 0.5);
+    }
+    &:active{
+        transform: scale(0.9);
+    }
 `;
 
 const InnerWrapper = styled.div`
@@ -132,6 +141,7 @@ export interface LeftMenuProps{
 }
 
 export const LeftMenu: FC<LeftMenuProps> = (props) => {
+    const location = useLocation();
     return(     
             <Wrapper>
                 <TopCard>
@@ -179,7 +189,7 @@ export const LeftMenu: FC<LeftMenuProps> = (props) => {
                         </Link>    
                     </InnerWrapper> 
                     <InnerWrapper>
-                        <Link to="/Entities">
+                        <Link to="/TestPage">
                             <CustomIconBotton src='../../media/icons/entities2.svg' />
                             <div>Entities</div>
                         </Link> 

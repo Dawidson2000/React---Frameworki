@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 export const TestPage: FC = () => {  
     return (
         <Wrapper>
-            <span>To jest strona testowa</span>
+            <span>¯\_( ͡ㆆ ͜ʖ ͡ㆆ)_/¯</span>
         </Wrapper>
     
     )

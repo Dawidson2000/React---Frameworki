@@ -6,7 +6,7 @@ import {LeftMenu} from '../LeftMenu/LeftMenu';
 import Publications from '../Publications/Publications';
 import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {Workspaces} from '../Workspaces/Workspaces';
-import {Entities} from '../Entities/Entities';
+import {Workspace} from '../Workspace/Workspace';
 import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
@@ -95,9 +95,9 @@ class MainPage extends Component {
                                             <TestPage/>
                                         </InnerWrapper>
                                     </Route>
-                                    <Route path="/Entities" exact>
+                                    <Route path="/Workspace" exact>
                                         <InnerWrapper>
-                                            <Entities/>
+                                            <Workspace/>
                                         </InnerWrapper>
                                     </Route>
                                     <Route path="/" exact>
