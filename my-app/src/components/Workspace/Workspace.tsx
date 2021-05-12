@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { useLocation } from 'react-router';
@@ -6,6 +6,7 @@ import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {media} from '../../styledHelpers/Breakpoints';
+import { reduceEachLeadingCommentRange } from 'typescript';
 
 
 const Wrapper = styled.div`
@@ -78,29 +79,51 @@ const SettingBtn = styled.button`
 `;
 
 const MiddleWrapper = styled.div`
-    height: 250px;
     width: 100%;
     background-color: lightgrey;
-    margin-bottom: 25px; 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-   
-    ${media.desktop`
-        flex-direction: row;
-    `}   
+    flex-wrap: wrap;
+`;
+
+const HeaderWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightgrey;
+    padding: 10px;
+    box-sizing: border-box;
 `;
 
 const Card = styled.div`
-    width: 32%;
     height: 200px;
+    width: 300px;
     margin: 5px;
     background-color: white;
 `;
 
+const HideButton = styled.button`
+
+`;
+
 export const Workspace: FC = () => {
     const location: any = useLocation()
+    
+    const [hidden, setHidden] = useState(true);
+  
+    const hiddenHandler = () =>{
+        setHidden(!hidden)
+    }
+
+    const hiddenAction =(): string =>{
+        if(hidden) return "Hidden"
+        return "Show"
+    }
+
 
     return (
         <Wrapper>
@@ -117,11 +140,18 @@ export const Workspace: FC = () => {
                     </div>
                 </InnerWrapper>
             </TopContainer>
-            <MiddleWrapper>
-                <Card></Card>
-                <Card></Card>
-                <Card></Card>
-            </MiddleWrapper>
+            <HeaderWrapper>
+                <h5>Start working on corporate matters</h5>
+                <HideButton onClick={hiddenHandler}>{hiddenAction()}</HideButton>
+            </HeaderWrapper>
+            {hidden &&
+                <MiddleWrapper>
+                    <Card></Card>
+                    <Card></Card>
+                    <Card></Card>
+                </MiddleWrapper>
+            }
+            <div style={{margin: '0 0 25px 0'}}></div>
             <ResumeYourWork/>
         </Wrapper>
     )

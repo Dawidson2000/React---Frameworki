@@ -10,7 +10,6 @@ import {Workspace} from '../Workspace/Workspace';
 import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
-import {user} from '../../media/Api';
 
 import store from '../../store'
 import { Provider } from 'react-redux'

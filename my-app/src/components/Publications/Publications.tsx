@@ -7,7 +7,6 @@ import {media} from '../../styledHelpers/Breakpoints';
 
 import {Publication} from './Publication';
 
-import {user} from '../../media/Api';
 import postsReducer from '../../Api/posts';
 
 const Wrapper = styled.div`
@@ -124,7 +123,7 @@ class Publications extends Component<PublicationsProps> {
                         <InfoContainer>
                             <span> 7 jan. 2020</span>
                             <ProfilePhotoWrapper/>
-                            <span>{user.name}</span>
+                            <span>{this.props.username}</span>
                         </InfoContainer>    
                     </TextContainer>
                 </LeftPhoto>           
