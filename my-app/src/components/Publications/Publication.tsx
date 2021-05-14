@@ -8,12 +8,18 @@ const Wrapper = styled.div`
     display: flex;
 `;
 
-const PublicationImg = styled.div`
+const PublicationImgWrapper = styled.div`
     min-width: 70px;
     min-height: 70px;
     background-color: grey;
     margin: 5px 10px;
     display: flex;
+    overflow: hidden;
+`;
+
+const PublicationImg = styled.img`
+    max-width: 70px;
+    max-height: 70px;
 `;
 
 const InfoContainer = styled.div`
@@ -60,7 +66,9 @@ export interface PublicationProps{
 export const Publication: FC<PublicationProps> = (props) => {  
     return (
         <Wrapper>
-            <PublicationImg/>
+            <PublicationImgWrapper>
+                <PublicationImg src='../../media/photo/skyscrapers.jpg' alt='skyscrapers'/>
+            </PublicationImgWrapper>
             <InnerWrapper>
                 <Link to="/TestPage"><p>{props.title}</p></Link>
                 <InfoContainer>

@@ -103,7 +103,7 @@ class MainPage extends Component {
                                         <InnerWrapper>
                                             <Publications username={this.state.username}/>
                                             <Workspaces/>
-                                            <ResumeYourWork/>
+                                            <ResumeYourWork title='Resume Your Work' buttonPanel={false}/>
                                         </InnerWrapper>
                                     </Route>
                                 </Switch>

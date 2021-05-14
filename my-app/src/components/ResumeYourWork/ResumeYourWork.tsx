@@ -9,6 +9,7 @@ import "./styles.css";
 import useDropdown from 'react-dropdown-hook';
 import {ExpandedFollow} from './ExpandedFollow';
 import {media} from '../../styledHelpers/Breakpoints';
+import {ButtonPanel} from "./ButtonPanel";
 
 const Wrapper = styled.div`
     margin-bottom: 10px;
@@ -126,9 +127,14 @@ const FollowedWrapper = styled.div`
     }
 `;
 
+export interface ITitleProps{
+    title: string,
+    buttonPanel: boolean;
+}
+
 const PER_PAGE = 10;
 
-export const ResumeYourWork: FC = () => {
+export const ResumeYourWork: FC<ITitleProps> = (props) => {
    
     const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([[]]);
@@ -201,7 +207,7 @@ export const ResumeYourWork: FC = () => {
             <Wrapper>
                 
                 <HeaderWrapper>
-                    <h1>Resume Your Work</h1>
+                    <h1>{props.title}</h1>
                     <div style={{display: 'flex'}}>
                     <InputWrapper>
                         <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
@@ -215,6 +221,7 @@ export const ResumeYourWork: FC = () => {
                     </FollowedWrapper>
                     </div>
                 </HeaderWrapper>
+                {props.buttonPanel && <ButtonPanel/>}
                 
                 {currentPageData}
                 <ReactPaginate

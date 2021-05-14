@@ -128,7 +128,7 @@ const RightIcons = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
+
     ${media.phone`
         width: 200px;
         padding-right: 0px;

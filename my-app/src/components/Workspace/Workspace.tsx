@@ -208,7 +208,7 @@ export const Workspace: FC = () => {
                 </MiddleWrapper>
             }
             <div style={{margin: '0 0 25px 0'}}></div>
-            <ResumeYourWork/>
+            <ResumeYourWork title='Latest Update' buttonPanel={true}/>
         </Wrapper>
     )
 }
