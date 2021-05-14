@@ -80,12 +80,13 @@ const SettingBtn = styled.button`
 
 const MiddleWrapper = styled.div`
     width: 100%;
-    background-color: lightgrey;
+    background-color: #f1f0f0;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    padding-bottom: 5px;
 `;
 
 const HeaderWrapper = styled.div`
@@ -94,7 +95,7 @@ const HeaderWrapper = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    background-color: lightgrey;
+    background-color: #f1f0f0;
     padding: 10px;
     box-sizing: border-box;
 `;
@@ -102,12 +103,50 @@ const HeaderWrapper = styled.div`
 const Card = styled.div`
     height: 200px;
     width: 300px;
-    margin: 5px;
+    margin: 10px;
     background-color: white;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+    &>p{
+        font-size: ${fontSize[14]};
+        line-height: 20px;
+        padding: 10px;
+    }
+    &>h4{
+        padding: 0 0 0 10px;
+    }
+    &>h4>b{
+        font-weight: 800;
+    }
 `;
 
 const HideButton = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0px 10px;
+    width: 50px;
+    height: 30px;
+    font-size: ${fontSize[14]};
+    border-radius: 5px;
+    transition: 0.1s;
+    font-weight: 500;
+    color: grey;
 
+    &:hover{
+        background-color: lightgray;
+    }
+`;
+
+const BackgroundIcon = styled.img`
+    min-width: 140px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.1;
 `;
 
 export const Workspace: FC = () => {
@@ -120,8 +159,19 @@ export const Workspace: FC = () => {
     }
 
     const hiddenAction =(): string =>{
-        if(hidden) return "Hidden"
+        if(hidden) return "Hide"
         return "Show"
+    }
+
+    const renderCard = (iconLink: string, title: string, text: string) =>{
+        return(
+            <>
+                <CustomIcon src={iconLink}/> 
+                <BackgroundIcon src={iconLink}/>
+                <h4>{title}</h4>
+                <p>{text}</p>
+            </>
+        )
     }
 
 
@@ -146,9 +196,15 @@ export const Workspace: FC = () => {
             </HeaderWrapper>
             {hidden &&
                 <MiddleWrapper>
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
+                    <Card>
+                        {renderCard('../../media/icons/search.svg', 'Explore your Entities', 'Take a few minutes to look at the most important elements and specificies of your entities')}
+                    </Card>
+                    <Card>
+                        {renderCard('../../media/icons/house.svg', 'Structure the ownership', 'Get a clear view of the ownership by looking at the relations between individuals and entities')}
+                    </Card>
+                    <Card>
+                        {renderCard('../../media/icons/people.svg', 'Define the calendar', 'Prepare future events by creating detailed plans around the life of your entity.')}
+                    </Card>
                 </MiddleWrapper>
             }
             <div style={{margin: '0 0 25px 0'}}></div>
