@@ -38,6 +38,11 @@ const ProfilePhotoWrapper = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    overflow: hidden;
+
+    &>img{
+        width: 100%;
+    }
 `;
 const InnerWrapper = styled.div`
     
@@ -60,7 +65,7 @@ const InnerWrapper = styled.div`
 
 export interface PublicationProps{
     title: string,
-    name: string
+    name: string,
 }
 
 export const Publication: FC<PublicationProps> = (props) => {  
@@ -73,7 +78,9 @@ export const Publication: FC<PublicationProps> = (props) => {
                 <Link to="/TestPage"><p>{props.title}</p></Link>
                 <InfoContainer>
                     <span> 7 jan. 2020</span>
-                    <ProfilePhotoWrapper/>
+                    <ProfilePhotoWrapper>
+                        <img src='../../media/photo/lego.jpg' alt='lego'/>
+                    </ProfilePhotoWrapper>
                     <span>{props.name}</span>
                 </InfoContainer>
             </InnerWrapper> 

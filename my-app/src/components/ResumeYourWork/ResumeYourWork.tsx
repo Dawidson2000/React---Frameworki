@@ -11,6 +11,10 @@ import {ExpandedFollow} from './ExpandedFollow';
 import {media} from '../../styledHelpers/Breakpoints';
 import {ButtonPanel} from "./ButtonPanel";
 
+import {useSelector} from 'react-redux';
+import {IState} from '../../reducers';
+import {IUsersReducer} from '../../reducers/usersReducer';
+
 const Wrapper = styled.div`
     margin-bottom: 10px;
     width: 100%;
@@ -144,17 +148,25 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
       }, []);
 
       async function fetchData() {
-        const res = await fetch('https://jsonplaceholder.typicode.com/comments');
-        const json = await res.json();
-        console.log(json);
+        const com = await fetch('https://jsonplaceholder.typicode.com/comments');
+        const comJson = await com.json();
+        console.log(comJson);
 
-        const comments = json.map((element: any) => {
-            return([element.id, element.name, element.body])
+        const post = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const postJson = await post.json();
+        
+        const posts = postJson.map((element: any) => {
+            return([element.id, element.userId])
+        })
+
+        console.log(posts[1][1]);
+
+        const comments = comJson.map((element: any) => {
+            return([element.id, element.name, element.body, posts[element.postId-1][1]-1]);
         })
 
         setData(comments);
       }
-      
 
     function handlePageClick({ selected: selectedPage }:any) {
         setCurrentPage(selectedPage);
@@ -171,11 +183,16 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
         setInputText(text);
     }
        
+    const {usersList} = useSelector<IState, IUsersReducer>(state => ({
+        ...state.users
+    }));
+      
     const currentPageData = data
         .slice(offset, offset + PER_PAGE)
         .map((element: any, index: number) => {
             const title: string = data[index+offset][1];
             const body: string = data[index+offset][2];
+            const userId: number = data[index+offset][3];
             return(
                 <div key={index} style={{width: '100%'}}>
                     {title?.toLowerCase().includes(inputText.toLowerCase()) &&
@@ -185,12 +202,12 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
 
                             <InfoContainer>
                                 <CustomIcon src='../../media/icons/house.svg'/>
-                                <span>SpaceX</span>
+                                <span>{usersList[userId]?.company.name}</span>
                                 <Circle/>
                                 <CustomIcon src='../../media/icons/entities2.svg'/>
-                                <span>Rocket Company</span>
+                                <span>{usersList[userId]?.company.catchPhrase}</span>
                                 <Circle/>
-                                <p>Updated 3 days ago by Jeff Who?</p>
+                                <p>Updated 3 days ago by {usersList[userId]?.name}</p>
                             </InfoContainer>
                         </Comment>
                     }

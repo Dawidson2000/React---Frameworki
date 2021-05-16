@@ -70,6 +70,11 @@ const ProfilePhotoWrapper = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    overflow: hidden;
+
+    &>img{
+        width: 100%;
+    }
 `;
 
 const PublicationsContainer = styled.div`
@@ -86,6 +91,7 @@ const PublicationsContainer = styled.div`
 
 export interface PublicationsProps{
     username: string,
+    userID: number,
 }
 
 class Publications extends Component<PublicationsProps> { 
@@ -95,20 +101,19 @@ class Publications extends Component<PublicationsProps> {
     }
 
     async componentDidMount(){
-        /* //fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
-        fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
-        .then((response) => response.json())
-        .then((data) =>{ 
-            this.setState({
-                posts: data,
-            })
-            console.log("user.posts")
-        });*/
-        const res = await fetch('https://jsonplaceholder.typicode.com/posts?userId=1');
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`);
         const json = await res.json();
         
         this.setState({
-            posts: [json[0].title, json[1].title, json[2].title, json[3].title]
+            posts: [json[0]?.title, json[1]?.title, json[2]?.title, json[3]?.title]
+        })
+    }
+    async componentDidUpdate(){
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`);
+        const json = await res.json();
+        
+        this.setState({
+            posts: [json[0]?.title, json[1]?.title, json[2]?.title, json[3]?.title]
         })
     }
 
@@ -120,7 +125,9 @@ class Publications extends Component<PublicationsProps> {
                         <Link to="/TestPage"><p>{this.state.posts[0]}</p></Link>
                         <InfoContainer>
                             <span> 7 jan. 2020</span>
-                            <ProfilePhotoWrapper/>
+                            <ProfilePhotoWrapper>
+                                <img src='../../media/photo/lego.jpg' alt='lego'/>
+                            </ProfilePhotoWrapper>
                             <span>{this.props.username}</span>
                         </InfoContainer>    
                     </TextContainer>

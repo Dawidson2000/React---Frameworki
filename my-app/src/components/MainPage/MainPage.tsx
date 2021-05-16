@@ -72,7 +72,9 @@ const InnerWrapper = styled.div`
 
 type GetUsers = ReturnType<typeof getUsers>
 
-export const MainPage: FC = () => { 
+export const MainPage: FC = () => {
+    
+    const USER_ID = 8;
   
     const dispatch = useDispatch();
 
@@ -87,9 +89,9 @@ export const MainPage: FC = () => {
         return(         
                 <Router>
                     <Wrapper>               
-                            <TopBar username={usersList[3]?.name}/>
+                            <TopBar username={usersList[USER_ID]?.name}/>
                             <Content>
-                                <LeftMenu companyName ={usersList[3]?.company.name} username={usersList[3]?.name}/>
+                                <LeftMenu companyName ={usersList[USER_ID]?.company.name} username={usersList[USER_ID]?.name}/>
                                 <Switch>
                                     <Route path="/TestPage" exact>
                                         <InnerWrapper>
@@ -103,7 +105,7 @@ export const MainPage: FC = () => {
                                     </Route>
                                     <Route path="/" exact>
                                         <InnerWrapper>
-                                            <Publications username={usersList[3]?.name}/>
+                                            <Publications username={usersList[USER_ID]?.name} userID={usersList[USER_ID]?.id}/>
                                             <Workspaces/>
                                             <ResumeYourWork title='Resume Your Work' buttonPanel={false}/>
                                         </InnerWrapper>
