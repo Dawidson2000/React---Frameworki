@@ -82,10 +82,10 @@ class MainPage extends Component {
     
     render(){      
         return(
-            <Provider store={store}>
+          
                 <Router>
                     <Wrapper>               
-                            <TopBar/>
+                            <TopBar username={this.state.username}/>
                             <Content>
                                 <LeftMenu companyName ={this.state.companyName} username={this.state.username}/>
                                 <Switch>
@@ -110,7 +110,7 @@ class MainPage extends Component {
                             </Content>
                     </Wrapper>
                 </Router>
-            </Provider>
+         
         )
     }    
 }

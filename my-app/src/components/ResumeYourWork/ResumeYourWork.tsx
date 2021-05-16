@@ -204,8 +204,7 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
     };
         
         return (
-            <Wrapper>
-                
+            <Wrapper>            
                 <HeaderWrapper>
                     <h1>{props.title}</h1>
                     <div style={{display: 'flex'}}>

@@ -182,8 +182,11 @@ const MenuIcon = styled.img`
     `}
 `;
 
+export interface ITopBarProps{
+    username: string,
+}
 
-export const TopBar: FC = () => {
+export const TopBar: FC<ITopBarProps> = (props) => {
 
     const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
 
@@ -206,7 +209,7 @@ export const TopBar: FC = () => {
                     <CustomIcon src='../../media/icons/house.svg'/>
                     <div>Home</div>
                     <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
-                    {dropdownOpen && <ExpandedMenu/>}
+                    {dropdownOpen && <ExpandedMenu username={props.username}/>}
                 </LeftHomeIcon>        
             </LeftWrapper>
             <MiddleWrapper>
@@ -220,7 +223,7 @@ export const TopBar: FC = () => {
                 <Link to="/TestPage"><CustomIcon src='../../media/icons/comments.svg'/></Link>
                 <Link to="/TestPage"><CustomIcon src='../../media/icons/bell.svg'/></Link>
                 <MenuIcon onClick={menuHandler} src='../../media/icons/menu.png' />
-                {dropdownOpen && isTabletViewActive() && <ExpandedMenu/>}
+                {dropdownOpen && isTabletViewActive() && <ExpandedMenu username={props.username}/>}
             </RightIcons>          
         </TopWrapper>
     );

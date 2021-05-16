@@ -106,13 +106,18 @@ const Profile = styled.div`
 
 `;
 
-const ProfileImage = styled.div`
+const ProfileImageWrapper = styled.div`
     height: 35px;
     width: 35px;
     border-radius: 50%;
     background-color: grey;
     margin-left: 8px;
     margin-right: 15px;
+    overflow: hidden;
+
+    &>img{
+        width: 100%;
+    }
 `;
 
 const ProfileData = styled.div`
@@ -152,7 +157,12 @@ const Logout = styled.div`
 
 `;
 
-export const ExpandedMenu: FC = () => {
+export interface IExpandedMenuProps{
+    username: string,
+}
+
+
+export const ExpandedMenu: FC<IExpandedMenuProps> = (props) => {
 
     const [inputText, setInputText] = useState<string>('');
 
@@ -212,9 +222,9 @@ export const ExpandedMenu: FC = () => {
             
             <p>Account</p>
             <Profile>
-                <ProfileImage/>
+                <ProfileImageWrapper><img src='../../media/photo/lego.jpg' alt='lego'/></ProfileImageWrapper>
                 <ProfileData>
-                    <p>Elon Musk</p>
+                    <p>{props.username}</p>
                     <Link to="/TestPage">See profile</Link>
                 </ProfileData>    
             </Profile>

@@ -118,13 +118,18 @@ const UserHolder = styled.div`
     }
 `;
 
-const CustomImg = styled.div`
+const UserImgWrapper = styled.div`
     width: 65px;
     height: 65px;
     border-radius: 50%;
     background-color: grey;
     margin-top: 15px;
     margin-bottom: 15px;
+    overflow: hidden;
+
+    &>img{
+        width: 100%;
+    }
 `;
 let UserName = styled.div`
     font-size: ${fontSize[14]};
@@ -135,19 +140,19 @@ const UserCompany = styled.div`
     margin-top: 15px;
 `;
 
-export interface LeftMenuProps{
+export interface ILeftMenuProps{
     username: string,
     companyName: string
 }
 
-export const LeftMenu: FC<LeftMenuProps> = (props) => {
+export const LeftMenu: FC<ILeftMenuProps> = (props) => {
     const location = useLocation();
     return(     
             <Wrapper>
                 <TopCard>
                     <UserHolder>
                         <Link to="/TestPage">
-                            <CustomImg/>
+                            <UserImgWrapper><img src='../../media/photo/lego.jpg' alt='lego'/></UserImgWrapper>
                             <UserName>{props.username}</UserName>
                             <UserCompany>{props.companyName}</UserCompany>
                         </Link>
