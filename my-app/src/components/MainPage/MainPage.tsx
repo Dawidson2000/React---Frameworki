@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {FC, useEffect } from 'react';
 import styled from 'styled-components';
 
 import {TopBar} from '../TopBar/TopBar';
@@ -11,8 +11,16 @@ import {TestPage} from '../TestPage/TestPage';
 
 import {media} from '../../styledHelpers/Breakpoints';
 
-import store from '../../store'
+import store from '../../tools/store'
 import { Provider } from 'react-redux'
+
+import {useDispatch} from 'react-redux';
+import {getUsers} from '../../actions/usersActions';
+
+import {useSelector} from 'react-redux';
+
+import {IState} from '../../reducers';
+import {IUsersReducer} from '../../reducers/usersReducer';
 
 import{
     BrowserRouter as Router,
@@ -62,32 +70,26 @@ const InnerWrapper = styled.div`
     overflow: hidden;
 `;
 
-class MainPage extends Component { 
-    
-    state = {
-        username: '',
-        companyName: ""
-    }
+type GetUsers = ReturnType<typeof getUsers>
 
-    componentDidMount(){
-        fetch('https://jsonplaceholder.typicode.com/users/1')
-        .then(response => response.json())
-        .then(data => {        
-            this.setState({
-                username: data.name,
-                companyName: data.company.name
-            })
-        });
-    }
-    
-    render(){      
-        return(
-          
+export const MainPage: FC = () => { 
+  
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch<GetUsers>(getUsers());
+    },[]);
+
+    const {usersList, someData} = useSelector<IState, IUsersReducer>(state => ({
+        ...state.users
+    }));
+
+        return(         
                 <Router>
                     <Wrapper>               
-                            <TopBar username={this.state.username}/>
+                            <TopBar username={usersList[3]?.name}/>
                             <Content>
-                                <LeftMenu companyName ={this.state.companyName} username={this.state.username}/>
+                                <LeftMenu companyName ={usersList[3]?.company.name} username={usersList[3]?.name}/>
                                 <Switch>
                                     <Route path="/TestPage" exact>
                                         <InnerWrapper>
@@ -101,7 +103,7 @@ class MainPage extends Component {
                                     </Route>
                                     <Route path="/" exact>
                                         <InnerWrapper>
-                                            <Publications username={this.state.username}/>
+                                            <Publications username={usersList[3]?.name}/>
                                             <Workspaces/>
                                             <ResumeYourWork title='Resume Your Work' buttonPanel={false}/>
                                         </InnerWrapper>
@@ -113,5 +115,4 @@ class MainPage extends Component {
          
         )
     }    
-}
-export default MainPage;
+

@@ -7,8 +7,6 @@ import {media} from '../../styledHelpers/Breakpoints';
 
 import {Publication} from './Publication';
 
-import postsReducer from '../../Api/posts';
-
 const Wrapper = styled.div`
     background-color: white;
     min-height: 300px;

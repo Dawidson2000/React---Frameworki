@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Reset} from 'styled-reset';
-import MainPage from './components/MainPage/MainPage';
-import store from './store'
+import {MainPage} from './components/MainPage/MainPage';
+import store from './tools/store'
 import { Provider } from 'react-redux'
 
 

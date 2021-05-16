@@ -1,5 +1,13 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styled from 'styled-components';
+
+import {useDispatch} from 'react-redux';
+import {getUsers} from '../../actions/usersActions';
+
+import {useSelector} from 'react-redux';
+
+import {IState} from '../../reducers';
+import {IUsersReducer} from '../../reducers/usersReducer';
 
 const Wrapper = styled.div`
     background-color: lightgrey;
@@ -13,10 +21,23 @@ const Wrapper = styled.div`
     justify-content: center;  
 `;
 
-export const TestPage: FC = () => {  
+type GetUsers = ReturnType<typeof getUsers>
+
+export const TestPage: FC = () => {
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch<GetUsers>(getUsers());
+    },[]);
+
+    const {usersList, someData} = useSelector<IState, IUsersReducer>(state => ({
+        ...state.users
+    }));
+    
     return (
         <Wrapper>
             <span>¯\_( ͡ㆆ ͜ʖ ͡ㆆ)_/¯</span>
+            <p>{usersList[3]?.name}</p>
         </Wrapper>
     
     )
