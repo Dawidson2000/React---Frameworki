@@ -94,27 +94,38 @@ export interface PublicationsProps{
     userID: number,
 }
 
-class Publications extends Component<PublicationsProps> { 
+class Publications extends Component<PublicationsProps> {
     
+    _isMounted = false;
+ 
    state = {
         posts: [],
     }
+    
 
-    async componentDidMount(){
-        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`);
+    componentDidMount(){
+        /*const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`);
         const json = await res.json();
         
         this.setState({
             posts: [json[0]?.title, json[1]?.title, json[2]?.title, json[3]?.title]
+        })*/
+        console.log(this.props.userID + "Mount");
+        this._isMounted = true;
+        fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`)
+        .then(res => res.json())
+        .then((json: any) =>{
+            this.setState({
+                posts: [json[0]?.title, json[1]?.title, json[2]?.title, json[3]?.title]
+            })
         })
     }
-    async componentDidUpdate(){
-        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userID}`);
-        const json = await res.json();
-        
-        this.setState({
-            posts: [json[0]?.title, json[1]?.title, json[2]?.title, json[3]?.title]
-        })
+    componentDidUpdate(){
+        console.log(this.props.userID + "Update");
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render(){

@@ -110,11 +110,17 @@ const BottonCard = styled.div`
 `;
 
 const UserHolder = styled.div`
+    transition: 0.1s linear;
+
     & > a{
     display: flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
+    }
+
+    &:hover{
+        transform: scale(1.05);
     }
 `;
 
@@ -151,7 +157,7 @@ export const LeftMenu: FC<ILeftMenuProps> = (props) => {
             <Wrapper>
                 <TopCard>
                     <UserHolder>
-                        <Link to="/TestPage">
+                        <Link to="/Profile">
                             <UserImgWrapper><img src='../../media/photo/lego.jpg' alt='lego'/></UserImgWrapper>
                             <UserName>{props.username}</UserName>
                             <UserCompany>{props.companyName}</UserCompany>

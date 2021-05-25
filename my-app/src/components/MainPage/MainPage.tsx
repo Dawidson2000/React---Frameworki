@@ -8,6 +8,7 @@ import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {Workspaces} from '../Workspaces/Workspaces';
 import {Workspace} from '../Workspace/Workspace';
 import {TestPage} from '../TestPage/TestPage';
+import {Profile} from '../Profile/Profile';
 
 import {media} from '../../styledHelpers/Breakpoints';
 
@@ -74,7 +75,7 @@ type GetUsers = ReturnType<typeof getUsers>
 
 export const MainPage: FC = () => {
     
-    const USER_ID = 8;
+    const USER_ID = 2;
   
     const dispatch = useDispatch();
 
@@ -103,9 +104,14 @@ export const MainPage: FC = () => {
                                             <Workspace/>
                                         </InnerWrapper>
                                     </Route>
+                                    <Route path="/Profile" exact>
+                                        <InnerWrapper>
+                                            <Profile userID={USER_ID}/>
+                                        </InnerWrapper>
+                                    </Route>
                                     <Route path="/" exact>
                                         <InnerWrapper>
-                                            <Publications username={usersList[USER_ID]?.name} userID={usersList[USER_ID]?.id}/>
+                                            <Publications username={usersList[USER_ID]?.name} userID={USER_ID}/>
                                             <Workspaces/>
                                             <ResumeYourWork title='Resume Your Work' buttonPanel={false}/>
                                         </InnerWrapper>

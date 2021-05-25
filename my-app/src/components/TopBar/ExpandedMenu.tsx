@@ -225,12 +225,12 @@ export const ExpandedMenu: FC<IExpandedMenuProps> = (props) => {
                 <ProfileImageWrapper><img src='../../media/photo/lego.jpg' alt='lego'/></ProfileImageWrapper>
                 <ProfileData>
                     <p>{props.username}</p>
-                    <Link to="/TestPage">See profile</Link>
+                    <Link to="/Profile">See profile</Link>
                 </ProfileData>    
             </Profile>
             <List>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/privacy.png'/></IconWrapper><p>Privacy</p></a></li>
-                <li><a href='#'><IconWrapper><CustomIcon src='../../media/icons/settings.png'/></IconWrapper><p>Settings</p></a></li>
+                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/privacy.png'/></IconWrapper><p>Privacy</p></Link></li>
+                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/settings.png'/></IconWrapper><p>Settings</p></Link></li>
             </List>
             <Line/>
             <Logout>

@@ -159,8 +159,6 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
             return([element.id, element.userId])
         })
 
-        console.log(posts[1][1]);
-
         const comments = comJson.map((element: any) => {
             return([element.id, element.name, element.body, posts[element.postId-1][1]-1]);
         })
