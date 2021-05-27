@@ -9,7 +9,7 @@ import {Workspaces} from '../Workspaces/Workspaces';
 import {Workspace} from '../Workspace/Workspace';
 import {TestPage} from '../TestPage/TestPage';
 import {Profile} from '../Profile/Profile';
-import Entities from '../Entities/Entities'
+import {Entities} from '../Entities/Entities';
 
 import {media} from '../../styledHelpers/Breakpoints';
 

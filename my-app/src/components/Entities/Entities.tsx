@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import {ChangeEvent, FC, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {fontSize} from '../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
@@ -139,89 +139,79 @@ export interface IEntitiesProps{
     users: ISingleUser[]
 }
 
-class Entities extends Component<IEntitiesProps> {
+export const Entities: FC<IEntitiesProps> = (props) => {
 
-    state = {
-        entitiesTiles: [],
-        isList: false,
-        inputText: "",
-    }
+    const [posts, setPosts] = useState<Entity[]>([]);
+    const [isList, setisList] = useState(false);
+    const [inputText, setinputText] = useState("");
+    const [photosJson, setphotosJson] = useState<any>([]);
 
-    inputHandler = (e: any) => {
+    const inputHandler = (e: any) => {
         const text = e.target.value;
-        this.setState((prevState) => ({
-            inputText: text
-        }))
+        setinputText(text);
     }
     
-    async componentDidMount(){    
+    useEffect(() => {
+        fetchData();
+      }, []);
+    
+    async function fetchData() {    
         const post = await fetch('https://jsonplaceholder.typicode.com/posts?_start=0&_limit=30');
         const postJson = await post.json();
 
         const photos = await fetch('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=30');
         const photosJson = await photos.json();
+        setphotosJson(photosJson);
        
         const posts: Entity[] = postJson.map((element: any) => {
             return({userId: element.userId, PhotoId: element.id})       
-        })
-       
-        const entitiesTiles = posts.map((entity: Entity, index: number) => {
-            const title = this.props.users[entity.userId].company.name;
-                return(
-                    <div key={index}>
-                        {title?.toLowerCase().includes(this.state.inputText.toLowerCase()) &&
-                            <Tile>
-                                <img src={photosJson[entity.userId]?.url}/>
-                                <TextWrap>
-                                    <h2>{title}</h2>
-                                    <>
-                                        <span>{this.props.users[entity.userId].address.street}</span>
-                                        <span>{this.props.users[entity.userId].address.city}</span>
-                                    </>
-                                </TextWrap>
-                            </Tile>
-                            }
-                    </div>
-                )
-        })
+        })    
+        setPosts(posts);
+    };
 
-        this.setState((prevState) => ({
-            entitiesTiles: entitiesTiles
-        }))
+    const entitiesTiles = posts.map((entity: Entity, index: number) => {
+        const title = props.users[entity.userId]?.company.name;
+            return(
+                <div key={index}>
+                    {title?.toLowerCase().includes(inputText.toLowerCase()) &&
+                        <Tile>
+                            <img src={photosJson[entity.userId]?.url}/>
+                            <TextWrap>
+                                <h2>{title}</h2>
+                                <>
+                                    <span>{props.users[entity.userId]?.address.street}</span>
+                                    <span>{props.users[entity.userId]?.address.city}</span>
+                                </>
+                            </TextWrap>
+                        </Tile>
+                        }
+                </div>
+            )
+    })
+
+    const handleListView = () =>{
+        setisList(true);
     }
 
-    componentDidUpdate(){
-    }
-
-    handleListView = () =>{
-        this.setState((prevState) => ({
-            isList: true,
-        }))
-    }
-
-    handleMosaicView = () =>{
-        this.setState((prevState) => ({
-            isList: false,
-        }))
+    const handleMosaicView = () =>{
+        setisList(false);
     }
 
 
-    render(){
         return (
             <>
              <InputWrapper>
-                <FilterInput placeholder="Filter by title..." type="text" value={this.state.inputText} onChange={this.inputHandler}/>
+                <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
                 <CustomIcon src='../../media/icons/search.svg'/>
             </InputWrapper>   
             <ListStyleButtons>
-                <MosaicButton toggle={this.state.isList} onClick={this.handleMosaicView}>Mosaic</MosaicButton>
-                <ListButton toggle={this.state.isList} onClick={this.handleListView}>List</ListButton>
+                <MosaicButton toggle={isList} onClick={handleMosaicView}>Mosaic</MosaicButton>
+                <ListButton toggle={isList} onClick={handleListView}>List</ListButton>
             </ListStyleButtons>
-            <Wrapper toggle={this.state.isList}>
-                {this.state.entitiesTiles}         
+            <Wrapper toggle={isList}>
+                {entitiesTiles}         
             </Wrapper>
             </>
         )
-    }
+   
 }
-export default Entities;
