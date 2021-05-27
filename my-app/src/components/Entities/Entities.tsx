@@ -16,7 +16,6 @@ interface IWrapperProps{
 const Wrapper = styled.div<IWrapperProps>`
     display: grid;
     width: 100%;
-    
     overflow-x: scroll;
 
     ${media.desktop`
@@ -30,7 +29,7 @@ const Wrapper = styled.div<IWrapperProps>`
       `;
     } else {
       return `
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr  1fr  1fr;
       `;
     }
   }}
@@ -171,22 +170,21 @@ export const Entities: FC<IEntitiesProps> = (props) => {
 
     const entitiesTiles = posts.map((entity: Entity, index: number) => {
         const title = props.users[entity.userId]?.company.name;
-            return(
-                <div key={index}>
-                    {title?.toLowerCase().includes(inputText.toLowerCase()) &&
-                        <Tile>
-                            <img src={photosJson[entity.userId]?.url}/>
-                            <TextWrap>
-                                <h2>{title}</h2>
-                                <>
-                                    <span>{props.users[entity.userId]?.address.street}</span>
-                                    <span>{props.users[entity.userId]?.address.city}</span>
-                                </>
-                            </TextWrap>
-                        </Tile>
-                        }
-                </div>
-            )
+        return(
+            title?.toLowerCase().includes(inputText.toLowerCase()) &&
+            <div key={index}>            
+                <Tile>
+                    <img src={photosJson[entity.userId]?.url}/>
+                    <TextWrap>
+                        <h2>{title}</h2>
+                        <>
+                            <span>{props.users[entity.userId]?.address.street}</span>
+                            <span>{props.users[entity.userId]?.address.city}</span>
+                        </>
+                    </TextWrap>
+                </Tile>                     
+            </div>               
+        )
     })
 
     const handleListView = () =>{
@@ -200,11 +198,11 @@ export const Entities: FC<IEntitiesProps> = (props) => {
 
         return (
             <>
-             <InputWrapper>
-                <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
-                <CustomIcon src='../../media/icons/search.svg'/>
-            </InputWrapper>   
-            <ListStyleButtons>
+              <ListStyleButtons>
+                <InputWrapper>
+                    <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
+                    <CustomIcon src='../../media/icons/search.svg'/>
+                </InputWrapper>   
                 <MosaicButton toggle={isList} onClick={handleMosaicView}>Mosaic</MosaicButton>
                 <ListButton toggle={isList} onClick={handleListView}>List</ListButton>
             </ListStyleButtons>
