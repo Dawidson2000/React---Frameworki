@@ -9,6 +9,7 @@ import {Workspaces} from '../Workspaces/Workspaces';
 import {Workspace} from '../Workspace/Workspace';
 import {TestPage} from '../TestPage/TestPage';
 import {Profile} from '../Profile/Profile';
+import Entities from '../Entities/Entities'
 
 import {media} from '../../styledHelpers/Breakpoints';
 
@@ -102,6 +103,11 @@ export const MainPage: FC = () => {
                                     <Route path="/Workspace" exact>
                                         <InnerWrapper>
                                             <Workspace/>
+                                        </InnerWrapper>
+                                    </Route>
+                                    <Route path="/Entities" exact>
+                                        <InnerWrapper>
+                                            <Entities users={usersList}/>
                                         </InnerWrapper>
                                     </Route>
                                     <Route path="/Profile" exact>

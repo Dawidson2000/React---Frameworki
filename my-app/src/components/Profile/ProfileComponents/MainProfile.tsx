@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {fontSize} from '../../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
 import {Colors} from '../../../styledHelpers/Colors'
-import { ButtonPanel } from '../../ResumeYourWork/ButtonPanel';
 
 import {useDispatch} from 'react-redux';
 import {getUsers} from '../../../actions/usersActions';
@@ -12,6 +11,9 @@ import {useSelector} from 'react-redux';
 
 import {IState} from '../../../reducers';
 import {IUsersReducer} from '../../../reducers/usersReducer';
+
+import {EditButton} from '../../Common/EditButton';
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -67,6 +69,18 @@ const UserWrapper = styled.div`
     margin: 10px;
     width: 100%;
     height: 100%;
+
+    &>div>input{
+        background-color: lightgray;
+        border: none;
+        outline: none;
+        margin: 4px;
+        font-size: 100%;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        padding: 3px;
+    }
 `;
 
 const LeftPhotoWrapper = styled.div`
@@ -123,31 +137,6 @@ const UserContactWrapper = styled.div`
     }
 `;
 
-const EditButton = styled.button`
-    position: absolute;
-    top: 40px;
-    right: 10px;
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-
-    &>img{
-        width: 20px;
-    }
-
-    &:hover{
-        background-color: lightgray;
-        border-radius: 50%;
-    }
-
-    &:active{
-        transform: scale(0.9);
-    }
-`;
-
 export interface IMainProfileProps{
     userID: number;
 }
@@ -157,20 +146,36 @@ type GetUsers = ReturnType<typeof getUsers>
 export const MainProfile: FC<IMainProfileProps> = (props) => { 
     
     const dispatch = useDispatch();
-
+    
+    const {usersList} = useSelector<IState, IUsersReducer>(state => ({
+        ...state.users
+    }));
+  
+    const [isEdited, setisEdited] = useState(false);
+    const [buttonIcon, setButtonIcon] = useState('../../media/icons/pencil.svg');
+  
     useEffect(()=>{
         dispatch<GetUsers>(getUsers());
     },[]);
 
-    const {usersList} = useSelector<IState, IUsersReducer>(state => ({
-        ...state.users
-    }));
+    const onEdited = () =>{
+        setisEdited(!isEdited);
 
-    const [name, setName] = useState("XD");
+        if(!isEdited)
+            setButtonIcon('../../media/icons/save.svg');
+        else
+            setButtonIcon('../../media/icons/pencil.svg');
+    }
 
-    const onChangeValue = () =>{
-        setName("XDD");
-        usersList[props.userID].name = "XD";
+    
+
+    const onChangeValue = (event: any) =>{
+        if(event.target.id === 'name') usersList[props.userID].name = event.target.value;
+        else if(event.target.id === 'companyName') usersList[props.userID].company.name = event.target.value;
+        else if(event.target.id === 'city') usersList[props.userID].address.city = event.target.value; 
+        else if(event.target.id === 'username') usersList[props.userID].username = event.target.value;
+        else if(event.target.id === 'phone') usersList[props.userID].phone = event.target.value;
+        else if(event.target.id === 'email') usersList[props.userID].email = event.target.value;  
     }
 
     return (
@@ -199,17 +204,17 @@ export const MainProfile: FC<IMainProfileProps> = (props) => {
                 </LeftPhotoWrapper>
                 
                 <UserInfoWrapper>
-                    <p>{usersList[props.userID]?.name}</p>
-                    <p>{usersList[props.userID]?.company.name}</p>
-                    <span>{usersList[props.userID]?.address.city}</span>
-                    <span>{usersList[props.userID]?.username}</span>
+                    {isEdited ? <input type="input" id='name' defaultValue={usersList[props.userID]?.name} onInput={onChangeValue}/> : <p>{usersList[props.userID]?.name}</p>}
+                    {isEdited ? <input type="input" id='companyName' defaultValue={usersList[props.userID]?.company.name} onInput={onChangeValue}/> : <p>{usersList[props.userID]?.company.name}</p>}
+                    {isEdited ? <input type="input" id='city' defaultValue={usersList[props.userID]?.address.city} onInput={onChangeValue}/> : <span>{usersList[props.userID]?.address.city}</span>}
+                    {isEdited ? <input type="input" id='username' defaultValue={usersList[props.userID]?.username} onInput={onChangeValue}/> : <span>{usersList[props.userID]?.username}</span>}
                 </UserInfoWrapper>
                 
                 <UserContactWrapper>
-                    <span>{usersList[props.userID]?.email}</span>
-                    <span>{usersList[props.userID]?.phone}</span>
+                    {isEdited ? <input type="input" id='email' defaultValue={usersList[props.userID]?.email} onInput={onChangeValue}/> : <span>{usersList[props.userID]?.email}</span>}
+                    {isEdited ? <input type="input" id='phone' defaultValue={usersList[props.userID]?.phone} onInput={onChangeValue}/> : <span>{usersList[props.userID]?.phone}</span>}
                 </UserContactWrapper>
             </UserWrapper>
-            <EditButton type="button" onClick={onChangeValue}><img src='../../media/icons/pencil.svg' alt='pencil'/></EditButton>
+            <EditButton type="button" onClick={onEdited}><img src={buttonIcon} alt='pencil'/></EditButton>
         </Wrapper>
     )}

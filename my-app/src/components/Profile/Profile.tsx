@@ -4,7 +4,8 @@ import {fontSize} from '../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
 import {Colors} from '../../styledHelpers/Colors'
 
-import {MainProfile} from './ProfileComponents/MainProfile'
+import {MainProfile} from './ProfileComponents/MainProfile';
+import {UserCharacteristics} from './ProfileComponents/UserCharacteristics';
 
 const ProfileWrapper = styled.div`
     width: 100%;
@@ -23,5 +24,6 @@ export const Profile: FC<IProfileProps> = (props) => {
     return (
         <ProfileWrapper>
             <MainProfile userID={props.userID}/>
+            <UserCharacteristics/>
         </ProfileWrapper>
     )}

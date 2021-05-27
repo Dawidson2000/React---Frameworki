@@ -208,7 +208,7 @@ export const ExpandedMenu: FC<IExpandedMenuProps> = (props) => {
                 <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/people.svg'/></IconWrapper><p>People</p></Link></li>}
                 
                 {'Entities'.toLowerCase().includes(inputText.toLowerCase()) &&
-                <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/entities2.svg'/></IconWrapper><p>Entities</p></Link></li>}
+                <li><Link to="/Entities"><IconWrapper><CustomIcon src='../../media/icons/entities2.svg'/></IconWrapper><p>Entities</p></Link></li>}
                 
                 {'Administration'.toLowerCase().includes(inputText.toLowerCase()) &&
                 <li><Link to="/TestPage"><IconWrapper><CustomIcon src='../../media/icons/administration.svg'/></IconWrapper><p>Administration</p></Link></li>}

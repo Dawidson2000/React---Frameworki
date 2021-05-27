@@ -200,7 +200,7 @@ export const LeftMenu: FC<ILeftMenuProps> = (props) => {
                         </Link>    
                     </InnerWrapper> 
                     <InnerWrapper>
-                        <Link to="/TestPage">
+                        <Link to="/Entities">
                             <CustomIconBotton src='../../media/icons/entities2.svg' />
                             <div>Entities</div>
                         </Link> 
