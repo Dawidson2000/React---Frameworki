@@ -15,6 +15,8 @@ import {useSelector} from 'react-redux';
 import {IState} from '../../reducers';
 import {IUsersReducer} from '../../reducers/usersReducer';
 
+import {FollowedWrapper} from '../Common/FollowedWrapper'
+
 const Wrapper = styled.div`
     margin-bottom: 10px;
     width: 100%;
@@ -114,21 +116,6 @@ const InputWrapper = styled.div`
     border-radius: 5px;
     border: 1px solid lightgray;
     margin-right: 10px;
-`;
-const FollowedWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    position: relative;
-    transition: 0.05s;   
-    & > span{
-        color: ${Colors.blue};
-        font-size: ${fontSize[12]};
-        margin: 0 5px;
-    }
-    &:hover{
-        background-color: lightgray;
-        cursor: pointer;
-    }
 `;
 
 export interface ITitleProps{

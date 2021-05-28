@@ -40,6 +40,7 @@ const Wrapper = styled.div`
     box-sizing: border-box;
     width: 100%;
     background-color: #f5f7f9;
+    position: relative;
 `;
 
 const Content = styled.div`
@@ -70,6 +71,16 @@ const InnerWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+`;
+const EntitiesWrapper = styled.div`
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 `;
 
 type GetUsers = ReturnType<typeof getUsers>
@@ -106,9 +117,9 @@ export const MainPage: FC = () => {
                                         </InnerWrapper>
                                     </Route>
                                     <Route path="/Entities" exact>
-                                        <InnerWrapper>
+                                        <EntitiesWrapper>
                                             <Entities users={usersList}/>
-                                        </InnerWrapper>
+                                        </EntitiesWrapper>
                                     </Route>
                                     <Route path="/Profile" exact>
                                         <InnerWrapper>

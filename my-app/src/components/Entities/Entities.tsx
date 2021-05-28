@@ -6,14 +6,47 @@ import {Colors} from '../../styledHelpers/Colors'
 import {media} from '../../styledHelpers/Breakpoints';
 import {Entity} from './EntitiesType';
 import {InputWrapper, FilterInput, CustomIcon} from '../Common/SearchInput'
+import {ExpandedFollow} from '../ResumeYourWork/ExpandedFollow';
 
 import {ISingleUser} from '../../entities/users';
+
+import { FaListUl } from 'react-icons/fa';
+import { BsFillGridFill } from 'react-icons/bs';
+import { AiOutlineFullscreen } from 'react-icons/ai';
+import { BiShare, BiFilterAlt, BiSort, BiDotsHorizontalRounded } from 'react-icons/bi';
+
+import {FollowedWrapper} from '../Common/FollowedWrapper'
+import useDropdown from 'react-dropdown-hook';
+import {Button} from '../Common/Button';
+import {SettingBtn} from '../Common/SettingButton';
 
 interface IWrapperProps{
     toggle: boolean
 }
 
 const Wrapper = styled.div<IWrapperProps>`
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+   ${props => {
+    if (props.toggle) {
+      return `
+        width: 100vw;
+        position: absolute;
+        top: 0;
+        left: -250px;
+      `;
+    } else {
+      return `
+        width: 100%;
+      `;
+    }
+  }}
+`;
+
+const EntitiesWrapper = styled.div<IWrapperProps>`
     display: grid;
     width: 100%;
     overflow-x: scroll;
@@ -70,15 +103,26 @@ const ListStyleButtons = styled.div`
     margin: 5px;
     width: 100%;
     justify-content: flex-end;
+    align-items: center;
+
+    & > label{
+        display: flex;
+        margin-right: auto;
+        align-items: center;
+    }
+
 `;
 const ListButton = styled.button<IWrapperProps>`
-    height: 30px;
+        height: 30px;
         padding: 0 10px;
         font-weight: 600;
         background-color: #eaecf5;
         border-radius: 5px;
         border: none;
         transition: linear 0.1s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover{
             background-color: #b8c1e7;
@@ -87,6 +131,17 @@ const ListButton = styled.button<IWrapperProps>`
 
         &:active{
            transform: scale(0.9);
+        }
+
+        & > span{
+            margin: 0 5px;
+        }
+
+        & > label{
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         ${props => {
@@ -98,6 +153,11 @@ const ListButton = styled.button<IWrapperProps>`
         return `
             color: gray;
             transform: scale(0.9);
+            width: 30px;
+            overflow: hidden;
+            
+            & > span{
+            display: none;
       `;
     }
   }}
@@ -111,6 +171,9 @@ const MosaicButton = styled.button<IWrapperProps>`
         border-radius: 5px;
         border: none;
         transition: linear 0.1s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover{
             background-color: #b8c1e7;
@@ -121,11 +184,30 @@ const MosaicButton = styled.button<IWrapperProps>`
            transform: scale(0.9);
         }
 
+        & > span{
+            margin: 0 5px;
+        }
+
+        & > label{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
         ${props => {
         if (props.toggle) {
         return `
             color: gray;
             transform: scale(0.9);
+            width: 30px;
+            overflow: hidden;
+            
+            & > span{
+            display: none;
+        }
         `;
         } else {
         return `
@@ -134,6 +216,15 @@ const MosaicButton = styled.button<IWrapperProps>`
     }
   }}
 `;
+
+const FiltersWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+`;
+
 export interface IEntitiesProps{
     users: ISingleUser[]
 }
@@ -144,6 +235,7 @@ export const Entities: FC<IEntitiesProps> = (props) => {
     const [isList, setisList] = useState(false);
     const [inputText, setinputText] = useState("");
     const [photosJson, setphotosJson] = useState<any>([]);
+    const [fullScreen, setFullScreen] = useState(false);
 
     const inputHandler = (e: any) => {
         const text = e.target.value;
@@ -195,21 +287,53 @@ export const Entities: FC<IEntitiesProps> = (props) => {
         setisList(false);
     }
 
+    const handleFullScreen = () =>{
+        setFullScreen(!fullScreen);
+    }
+    
+    const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+
+    const menuHandler = () =>{
+        toggleDropdown();
+    };
 
         return (
-            <>
-              <ListStyleButtons>
-                <InputWrapper>
-                    <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
-                    <CustomIcon src='../../media/icons/search.svg'/>
-                </InputWrapper>   
-                <MosaicButton toggle={isList} onClick={handleMosaicView}>Mosaic</MosaicButton>
-                <ListButton toggle={isList} onClick={handleListView}>List</ListButton>
-            </ListStyleButtons>
-            <Wrapper toggle={isList}>
-                {entitiesTiles}         
+            <Wrapper toggle={fullScreen}>
+                <ListStyleButtons>
+                    <label>
+                        <h2>Entities</h2>
+                        <SettingBtn style={{position: 'relative'}}><img src='../../media/icons/cog.svg' alt='settings'/></SettingBtn>
+                    </label>   
+                    <MosaicButton toggle={isList} onClick={handleMosaicView}><label><BsFillGridFill /></label><span>Mosaic</span></MosaicButton>
+                    <ListButton toggle={isList} onClick={handleListView}><label><FaListUl /></label><span>List</span></ListButton>
+                </ListStyleButtons>
+                <FiltersWrapper>
+                    <div style={{display: 'flex'}}>
+                    <Button type="button"><BiDotsHorizontalRounded/></Button>
+                        <Button type="button"><BiSort />Sort</Button>
+                        <Button type="button"><BiFilterAlt />Filters</Button>
+                        <Button onClick={handleFullScreen} type="button"><AiOutlineFullscreen /></Button>
+                        <Button type="button"><BiShare />Share</Button>
+                    </div>
+                   
+                   <div style={{display: 'flex'}}>
+                    <InputWrapper>
+                        <FilterInput placeholder="Filter by title..." type="text" value={inputText} onChange={inputHandler}/>
+                        <CustomIcon src='../../media/icons/search.svg'/>
+                    </InputWrapper>
+                    <FollowedWrapper ref={wrapperRef} onClick={menuHandler}>
+                        <CustomIcon src='../../media/icons/followed.svg' style={{width: '12px'}}/>
+                        <span>Followed</span>
+                        <CustomIcon src ='../../media/icons/arrow-down-blue.svg' style={{width: '9px'}}/>
+                        {dropdownOpen && <ExpandedFollow/>}
+                    </FollowedWrapper>
+                    </div>
+                
+                </FiltersWrapper>
+                <EntitiesWrapper toggle={isList}>
+                    {entitiesTiles}         
+                </EntitiesWrapper>
             </Wrapper>
-            </>
         )
    
 }

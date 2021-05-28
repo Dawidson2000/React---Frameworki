@@ -6,7 +6,8 @@ import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 import {ResumeYourWork} from '../ResumeYourWork/ResumeYourWork';
 import {media} from '../../styledHelpers/Breakpoints';
-import { reduceEachLeadingCommentRange } from 'typescript';
+import { reduceEachLeadingCommentRange } from 'typescript'
+import {SettingBtn} from '../Common/SettingButton';
 
 
 const Wrapper = styled.div`
@@ -53,28 +54,6 @@ const InnerWrapper = styled.div`
     & > div > p{
         padding: 10px;
         color: lightgray;
-    }
-`;
-
-const SettingBtn = styled.button`
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 15px;
-    outline: none;
-    background: none;
-    border: none;
-    transition: 0.1s;
-
-    &:hover{
-        transform: scale(1.1);
-    }
-    &:active{
-        transform: scale(1);
-    }
-
-    &>img{
-        width: 18px;
     }
 `;
 
@@ -182,7 +161,7 @@ export const Workspace: FC = () => {
                     <CustomPhoto src={location.state?.photoLink}/>
                 </PhotoWrapper>
                 <InnerWrapper>
-                    <SettingBtn><img src='../../media/icons/cog.svg' alt='settings'/></SettingBtn>
+                    <SettingBtn style={{margin: '15px'}}><img src='../../media/icons/cog.svg' alt='settings'/></SettingBtn>
                     <CustomIcon src={location.state?.iconLink} />
                     <div>
                         <h2>{location.state?.title}</h2>
