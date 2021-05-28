@@ -81,6 +81,7 @@ const EntitiesWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     position: relative;
+    overflow: hidden;
 `;
 
 type GetUsers = ReturnType<typeof getUsers>
@@ -117,9 +118,9 @@ export const MainPage: FC = () => {
                                         </InnerWrapper>
                                     </Route>
                                     <Route path="/Entities" exact>
-                                        <EntitiesWrapper>
+                                      
                                             <Entities users={usersList}/>
-                                        </EntitiesWrapper>
+                                       
                                     </Route>
                                     <Route path="/Profile" exact>
                                         <InnerWrapper>

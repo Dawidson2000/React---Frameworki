@@ -29,21 +29,30 @@ const Wrapper = styled.div<IWrapperProps>`
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 5px;
-    box-sizing: border-box;
+    transition: linear 0.1s;
+    margin-top: 20px;
+    margin-right: 0;
+    overflow: hidden;
    ${props => {
     if (props.toggle) {
-      return `
-        width: 100vw;
+      return ` 
         position: absolute;
-        top: 0;
-        left: -250px;
+        width: calc(100vw - 35px);
+        top: 50px;
+        left: 0;
+        min-height: calc(100vh - 90px);
+        margin-left: 5px;
       `;
     } else {
       return `
-        width: 100%;
+       width: calc(100% - 20px);
       `;
     }
   }}
+
+    ${media.tablet`
+        margin-right: 20px;
+    `}
 `;
 
 const EntitiesWrapper = styled.div<IWrapperProps>`
