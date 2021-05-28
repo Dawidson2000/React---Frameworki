@@ -33,11 +33,12 @@ const Wrapper = styled.div<IWrapperProps>`
     margin-top: 20px;
     margin-right: 0;
     overflow: hidden;
+    transition: linear 0.1s;
    ${props => {
     if (props.toggle) {
       return ` 
         position: absolute;
-        width: calc(100vw - 35px);
+        width: calc(100vw - 45px);
         top: 50px;
         left: 0;
         min-height: calc(100vh - 90px);
