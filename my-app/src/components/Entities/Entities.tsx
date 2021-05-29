@@ -19,6 +19,7 @@ import {FollowedWrapper} from '../Common/FollowedWrapper'
 import useDropdown from 'react-dropdown-hook';
 import {Button} from '../Common/Button';
 import {SettingBtn} from '../Common/SettingButton';
+import { JsxElement } from 'typescript';
 
 interface IWrapperProps{
     toggle: boolean
@@ -38,10 +39,10 @@ const Wrapper = styled.div<IWrapperProps>`
     if (props.toggle) {
       return ` 
         position: absolute;
-        width: calc(100vw - 45px);
+        width: calc(100% - 30px);
         top: 50px;
         left: 0;
-        min-height: calc(100vh - 90px);
+        min-height: calc(100vh - 110px);
         margin-left: 5px;
       `;
     } else {
@@ -231,7 +232,7 @@ const FiltersWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 50px;
+    margin: 5px 0;
     width: 100%;
 `;
 
@@ -246,6 +247,7 @@ export const Entities: FC<IEntitiesProps> = (props) => {
     const [inputText, setinputText] = useState("");
     const [photosJson, setphotosJson] = useState<any>([]);
     const [fullScreen, setFullScreen] = useState(false);
+    const [alphabeticallySort, setAlphabeticallySort] = useState(true);
 
     const inputHandler = (e: any) => {
         const text = e.target.value;
@@ -254,7 +256,7 @@ export const Entities: FC<IEntitiesProps> = (props) => {
     
     useEffect(() => {
         fetchData();
-      }, []);
+      }, [alphabeticallySort]);
     
     async function fetchData() {    
         const post = await fetch('https://jsonplaceholder.typicode.com/posts?_start=0&_limit=30');
@@ -266,11 +268,20 @@ export const Entities: FC<IEntitiesProps> = (props) => {
        
         const posts: Entity[] = postJson.map((element: any) => {
             return({userId: element.userId, PhotoId: element.id})       
-        })    
-        setPosts(posts);
+        })
+        
+        const sortedPosts = posts.sort(function(a, b){
+            let sortType: number;
+            alphabeticallySort ? sortType = 1 : sortType = -1;
+            if(props.users[a.userId]?.company.name < props.users[b.userId]?.company.name) { return -1 * sortType; }
+            if(props.users[a.userId]?.company.name > props.users[b.userId]?.company.name) { return 1 * sortType; }
+            return 0;  
+        })
+        
+        setPosts(sortedPosts);
     };
 
-    const entitiesTiles = posts.map((entity: Entity, index: number) => {
+    let entitiesTiles = posts.map((entity: Entity, index: number) => {
         const title = props.users[entity.userId]?.company.name;
         return(
             title?.toLowerCase().includes(inputText.toLowerCase()) &&
@@ -300,6 +311,10 @@ export const Entities: FC<IEntitiesProps> = (props) => {
     const handleFullScreen = () =>{
         setFullScreen(!fullScreen);
     }
+
+    const handleAlphabeticallySort = () =>{
+        setAlphabeticallySort(!alphabeticallySort);
+    }
     
     const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
 
@@ -318,9 +333,9 @@ export const Entities: FC<IEntitiesProps> = (props) => {
                     <ListButton toggle={isList} onClick={handleListView}><label><FaListUl /></label><span>List</span></ListButton>
                 </ListStyleButtons>
                 <FiltersWrapper>
-                    <div style={{display: 'flex'}}>
+                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
                     <Button type="button"><BiDotsHorizontalRounded/></Button>
-                        <Button type="button"><BiSort />Sort</Button>
+                        <Button onClick={handleAlphabeticallySort} type="button" ><BiSort />Sort</Button>
                         <Button type="button"><BiFilterAlt />Filters</Button>
                         <Button onClick={handleFullScreen} type="button"><AiOutlineFullscreen /></Button>
                         <Button type="button"><BiShare />Share</Button>

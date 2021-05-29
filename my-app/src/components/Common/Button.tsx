@@ -15,6 +15,7 @@ export const Button = styled.button`
     font-weight: 600;
     box-sizing: border-box;
     border: 2px solid transparent;
+    transition: linear 0.05s;
 
     &>svg{
         font-size: 25px;
@@ -24,5 +25,9 @@ export const Button = styled.button`
     &:hover{    
         border: 2px solid ${Colors.grey};
         border-radius: 5px;
+    }
+
+    &:active{    
+        transform: scale(0.9);
     }
 `;
