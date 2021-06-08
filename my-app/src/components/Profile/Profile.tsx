@@ -6,6 +6,7 @@ import {Colors} from '../../styledHelpers/Colors'
 
 import {MainProfile} from './ProfileComponents/MainProfile';
 import {UserCharacteristics} from './ProfileComponents/UserCharacteristics';
+import {Proposals} from './ProfileComponents/Proposals';
 
 const ProfileWrapper = styled.div`
     width: 100%;
@@ -25,5 +26,6 @@ export const Profile: FC<IProfileProps> = (props) => {
         <ProfileWrapper>
             <MainProfile userID={props.userID}/>
             <UserCharacteristics/>
+            <Proposals/>
         </ProfileWrapper>
     )}
