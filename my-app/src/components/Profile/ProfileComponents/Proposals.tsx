@@ -67,7 +67,7 @@ export const Proposals: FC = () => {
                                  <tr>
                                     {row.map((data: string, dataIndex: number) => {
                                         return(
-                                            edited ? <td><input type='input' defaultValue={data} onBlurCapture={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                            edited ? <td><input type='input' placeholder={data} onBlurCapture={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                    : <td>{data}</td>
                                         )
                                     })}
