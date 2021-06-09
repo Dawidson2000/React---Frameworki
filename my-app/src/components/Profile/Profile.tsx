@@ -26,6 +26,5 @@ export const Profile: FC<IProfileProps> = (props) => {
         <ProfileWrapper>
             <MainProfile userID={props.userID}/>
             <UserCharacteristics/>
-            <Proposals/>
         </ProfileWrapper>
     )}

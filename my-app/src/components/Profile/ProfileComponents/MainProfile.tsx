@@ -13,6 +13,7 @@ import {IState} from '../../../reducers';
 import {IUsersReducer} from '../../../reducers/usersReducer';
 
 import {EditButton} from '../../Common/EditButton';
+import {BiPencil, BiSave} from 'react-icons/bi';
 
 
 const Wrapper = styled.div`
@@ -152,19 +153,13 @@ export const MainProfile: FC<IMainProfileProps> = (props) => {
     }));
   
     const [isEdited, setisEdited] = useState(false);
-    const [buttonIcon, setButtonIcon] = useState('../../media/icons/pencil.svg');
-  
+    
     useEffect(()=>{
         dispatch<GetUsers>(getUsers());
     },[]);
 
     const onEdited = () =>{
         setisEdited(!isEdited);
-
-        if(!isEdited)
-            setButtonIcon('../../media/icons/save.svg');
-        else
-            setButtonIcon('../../media/icons/pencil.svg');
     }
 
     
@@ -215,6 +210,7 @@ export const MainProfile: FC<IMainProfileProps> = (props) => {
                     {isEdited ? <input type="input" id='phone' defaultValue={usersList[props.userID]?.phone} onInput={onChangeValue}/> : <span>{usersList[props.userID]?.phone}</span>}
                 </UserContactWrapper>
             </UserWrapper>
-            <EditButton type="button" onClick={onEdited}><img src={buttonIcon} alt='pencil'/></EditButton>
+            { isEdited ? <EditButton type="button" onClick={onEdited}><BiSave/></EditButton>
+                       : <EditButton type="button" onClick={onEdited}><BiPencil/></EditButton>}
         </Wrapper>
     )}

@@ -6,6 +6,11 @@ import {Colors} from '../../../styledHelpers/Colors'
 
 import {EditButton} from '../../Common/EditButton';
 
+import {Proposals} from '../ProfileComponents/Proposals';
+import {InternalReviews} from "./InternalReviews";
+import {Fees} from "./Fees";
+import {BiPencil, BiSave} from 'react-icons/bi';
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,7 +41,13 @@ const Characteristic = styled.div`
     margin: 0 10px 0 0;
 `;
 
-export const UserCharacteristics: FC = () => { 
+export const UserCharacteristics: FC = () => {
+    
+    const [isEdited, setisEdited] = useState(false);
+
+    const onEdited = () =>{
+        setisEdited(!isEdited);
+    }
     
     return (
         <Wrapper>
@@ -70,7 +81,13 @@ export const UserCharacteristics: FC = () => {
                 </CharacteristicWrapper>
             </Characteristics>
 
-            <EditButton type="button"><img src='../../media/icons/pencil.svg' alt='pencil'/></EditButton>
+            { isEdited ? <EditButton type="button" onClick={onEdited}><BiSave/></EditButton>
+                       : <EditButton type="button" onClick={onEdited}><BiPencil/></EditButton>}
+            
+            <Proposals Edited = {isEdited}/>
+            <InternalReviews Edited = {isEdited}/>
+            <Fees Edited = {isEdited}/>
+
         </Wrapper>
     )
 }

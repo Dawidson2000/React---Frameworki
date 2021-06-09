@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {fontSize} from '../../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
 import {Colors} from '../../../styledHelpers/Colors'
-import {GrFormClose} from 'react-icons/gr';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -74,16 +73,16 @@ const Wrapper = styled.div`
        }  
     }
 `;
-const tableRows = [['Operation', 'Renault', 'France', '#Tax', '20/01/2018', 'Racine'],
-                  ['Op. Promet', 'Renault', 'USA', '#M&A', '25/03/2019', 'Cliford Chance'],
-                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '25/03/2020', 'SVZ']]
-const headers = ['Name', 'Entity', 'Location', "Expertise", 'Date', 'Firm'];
+const tableRows = [['Operation', 'Renault', 'France', '#Tax', '20/01/2018'],
+                  ['Op. Promet', 'Renault', 'USA', '#M&A', '25/03/2019'],
+                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '25/03/2020']]
+const headers = ['Name', 'Entity', 'Location', "Expertise", 'Date'];
 
-export interface IProposalsProps{
+export interface IInternalReviews{
     Edited: boolean;
 }
 
-export const Proposals: FC<IProposalsProps> = (props) => {
+export const InternalReviews: FC<IInternalReviews> = (props) => {
     
     const [rows, setRows] = useState<string[][]>(tableRows);
     const [hiddenRows, setHiddenRows] = useState<boolean>(true);
@@ -114,7 +113,7 @@ export const Proposals: FC<IProposalsProps> = (props) => {
       }, [props.Edited]);
 
     
-    const createTable = (numberOfDisplayRows: number) => {   
+      const createTable = (numberOfDisplayRows: number) => {   
         return(
             <>
                 <table>
@@ -148,10 +147,10 @@ export const Proposals: FC<IProposalsProps> = (props) => {
    
     return (       
         <Wrapper>
-            <h2>Proposals</h2>
+            <h2>Internal reviews</h2>
             {hiddenRows ? createTable(3) : createTable(rows.length)}
             {props.Edited || (hiddenRows ? <button type="button" onClick={handleHiddenRows}>See more proposals</button>
-                                        : <button type="button" onClick={handleHiddenRows}>See less proposals</button>)}         
+                                        : <button type="button" onClick={handleHiddenRows}>See less proposals</button>)}           
         </Wrapper>
     )
 }

@@ -19,7 +19,6 @@ import {FollowedWrapper} from '../Common/FollowedWrapper'
 import useDropdown from 'react-dropdown-hook';
 import {Button} from '../Common/Button';
 import {SettingBtn} from '../Common/SettingButton';
-import { JsxElement } from 'typescript';
 
 interface IWrapperProps{
     toggle: boolean
