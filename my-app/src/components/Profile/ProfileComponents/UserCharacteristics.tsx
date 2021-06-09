@@ -8,6 +8,7 @@ import {EditButton} from '../../Common/EditButton';
 
 import {Proposals} from '../ProfileComponents/Proposals';
 import {InternalReviews} from "./InternalReviews";
+import {PanelInformations} from './PanelInformations';
 import {Fees} from "./Fees";
 import {BiPencil, BiSave} from 'react-icons/bi';
 
@@ -84,10 +85,10 @@ export const UserCharacteristics: FC = () => {
             { isEdited ? <EditButton type="button" onClick={onEdited}><BiSave/></EditButton>
                        : <EditButton type="button" onClick={onEdited}><BiPencil/></EditButton>}
             
+            <PanelInformations Edited = {isEdited}/>
             <Proposals Edited = {isEdited}/>
             <InternalReviews Edited = {isEdited}/>
-            <Fees Edited = {isEdited}/>
-
+            <Fees Edited = {isEdited}/>            
         </Wrapper>
     )
 }

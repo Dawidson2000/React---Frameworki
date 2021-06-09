@@ -34,7 +34,7 @@ import{
 const Wrapper = styled.div`
     min-height: 100vh;
     background-color: #f5f7f9;
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Poppins:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     box-sizing: border-box;

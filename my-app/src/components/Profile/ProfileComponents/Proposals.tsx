@@ -7,8 +7,7 @@ import {GrFormClose} from 'react-icons/gr';
 
 const Wrapper = styled.div`
     width: 100%;
-    overflow-x: scroll;
-    margin: 30px 0px;
+    margin-top: 30px;
     padding: 10px;
     border-top: solid 2px #e1e3e6;
 
@@ -35,13 +34,13 @@ const Wrapper = styled.div`
 
     & > table{
         width: 100%;
-        text-align: center; 
     }
     
     & > tr, th{
         border-bottom: 1px solid #e1e3e6;
         padding: 10px;
         max-width: 100px;
+        text-align: left;
     }
   
     & > tr, td{
@@ -49,10 +48,11 @@ const Wrapper = styled.div`
         max-width: 100px;
         height: 20px;
         overflow: hidden;
-        text-overflow: ellipsis;
+        font-weight: 200;
     
         & > input{
             width: 100%;
+            font-family: inherit;
         }
 
         & > button{
@@ -100,7 +100,10 @@ export const Proposals: FC<IProposalsProps> = (props) => {
     
     const editData = (rowIndex: number, dataIndex: number, event: any) => {
         let tempTab = [...rows];
-        tempTab[rowIndex][dataIndex] = event.target.value;
+        let value: string;
+        if(!event.target.value) value="empty"
+        else value = event.target.value;
+        tempTab[rowIndex][dataIndex] = value;
         setRows(tempTab);
     }
     
@@ -150,8 +153,8 @@ export const Proposals: FC<IProposalsProps> = (props) => {
         <Wrapper>
             <h2>Proposals</h2>
             {hiddenRows ? createTable(3) : createTable(rows.length)}
-            {props.Edited || (hiddenRows ? <button type="button" onClick={handleHiddenRows}>See more proposals</button>
-                                        : <button type="button" onClick={handleHiddenRows}>See less proposals</button>)}         
+            {props.Edited || (hiddenRows ? rows.length > 3 && <button type="button" onClick={handleHiddenRows}>See more proposals</button>
+                                        :  rows.length > 3 && <button type="button" onClick={handleHiddenRows}>See less proposals</button>)}         
         </Wrapper>
     )
 }
