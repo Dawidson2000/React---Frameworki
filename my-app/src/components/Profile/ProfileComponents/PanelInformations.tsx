@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import {fontSize} from '../../../styledHelpers/FontSizes';
 import {Link} from 'react-router-dom';
 import {Colors} from '../../../styledHelpers/Colors'
-import {GrFormClose} from 'react-icons/gr';
+import {FaRegFile} from 'react-icons/fa';
 
 const Wrapper = styled.div`
     width: 100%;
     border-top: solid 2px #e1e3e6;
     margin-top: 30px;
     padding: 10px;
+    box-sizing: border-box;
     
     &>h2{
         font-size: ${fontSize[20]};
@@ -33,6 +34,31 @@ const Wrapper = styled.div`
         padding: 2px 5px;
         outline: none;
     }
+
+    & > div{
+        width: 100%;
+        background-color: ${Colors.lightBackgroundBlue};
+        height: 45px;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        margin: 10px 0;
+        box-sizing: border-box;
+
+        & > input{
+            font-family: inherit;
+        }
+    }
+
+    & > div > span{
+        display: flex;
+        align-items: center;
+   
+        & > svg{
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    }
 `;
 export interface IPanelInformations{
     Edited: boolean;
@@ -41,9 +67,21 @@ export interface IPanelInformations{
 export const PanelInformations: FC<IPanelInformations> = (props) => {
     
     const [hourlyFe, setHourlyFee] = useState<number>(610);
+    const [selectedFile, setSelectedFile] = useState<any>(null);
  
     const handleFeeChange = (event: any) => {
         setHourlyFee(event.target.value)
+    }
+
+    const onFileChange = (event: any) => {
+        setSelectedFile(event.target.files[0])
+    }
+
+    const fileData = () => {
+        if(selectedFile)
+            return( <span><FaRegFile/>File Name: {selectedFile?.name}</span> )     
+        else 
+            return( <span><FaRegFile/>No file Chosen</span> )       
     }
    
     return (       
@@ -62,6 +100,10 @@ export const PanelInformations: FC<IPanelInformations> = (props) => {
             </>}
             <h4>Terms & conditions</h4>
             <span>Monthly 10k€ retainer - see with Jeanny Smith</span>
+            <div>
+                {props.Edited ? <input type="file" onChange={onFileChange}/>
+                              : fileData()}
+            </div>
         </Wrapper>
     )
 }

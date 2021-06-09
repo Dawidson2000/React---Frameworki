@@ -10,6 +10,7 @@ const Wrapper = styled.div`
     margin-top: 30px;
     padding: 10px;
     border-top: solid 2px #e1e3e6;
+    box-sizing: border-box;
 
     & > button{
         background: none;
