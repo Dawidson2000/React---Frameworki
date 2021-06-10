@@ -86,7 +86,11 @@ export interface IFees{
 
 export const Fees: FC<IFees> = (props) => {
     
-    const [rows, setRows] = useState<string[][]>(tableRows);
+    const [rows, setRows] = useState<string[][]>([]);
+
+    useEffect(() => {
+        setRows(tableRows);
+      }, []);
  
     const addRow = () => {
         setRows(rows => [...rows, [...headers]]);
@@ -123,7 +127,7 @@ export const Fees: FC<IFees> = (props) => {
                                     <tr key={rowIndex}>
                                         {row.map((data: string, dataIndex: number) => {
                                             return(
-                                                props.Edited ? <td key={dataIndex}><input type='text' placeholder={data} onBlurCapture={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                                props.Edited ? <td key={dataIndex}><input type='text' value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                     : <td key={dataIndex}>{data}</td>
                                             )
                                         })}

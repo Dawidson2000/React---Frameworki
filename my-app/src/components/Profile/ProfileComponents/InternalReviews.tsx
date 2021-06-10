@@ -86,7 +86,7 @@ export interface IInternalReviews{
 
 export const InternalReviews: FC<IInternalReviews> = (props) => {
     
-    const [rows, setRows] = useState<string[][]>(tableRows);
+    const [rows, setRows] = useState<string[][]>([]);
     const [hiddenRows, setHiddenRows] = useState<boolean>(true);
  
     const addRow = () => {
@@ -117,7 +117,10 @@ export const InternalReviews: FC<IInternalReviews> = (props) => {
             setHiddenRows(false);
       }, [props.Edited]);
 
-    
+      useEffect(() => {
+        setRows(tableRows);
+      }, []);
+
       const createTable = (numberOfDisplayRows: number) => {   
         return(
             <>
@@ -134,7 +137,7 @@ export const InternalReviews: FC<IInternalReviews> = (props) => {
                                     <tr key={rowIndex}>
                                         {row.map((data: string, dataIndex: number) => {
                                             return(
-                                                props.Edited ? <td key={dataIndex}><input type='text' placeholder={data} onBlurCapture={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                                props.Edited ? <td key={dataIndex}><input type='text' value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                     : <td key={dataIndex}>{data}</td>
                                             )
                                         })}
