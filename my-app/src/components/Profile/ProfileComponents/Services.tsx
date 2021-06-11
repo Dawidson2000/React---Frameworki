@@ -109,7 +109,6 @@ export const Services: FC<IServices> = (props) => {
     }
 
     const createCorrespondants = () => {
-        console.log(correspondants);
         return(
             correspondants.map((correspondant: string, index: number) => {
                 return(
@@ -132,6 +131,7 @@ export const Services: FC<IServices> = (props) => {
             <p>Corporate M&A and international acquisitions</p>
             <h3>Internal correspondants</h3>
             {createCorrespondants()}
+            {correspondants.length===0 && <p>No Correspondants!</p>}
             {props.Edited && <button type="button" onClick={addCorrespondant}>+ Add Correspondant</button>} 
         </Wrapper>
     )

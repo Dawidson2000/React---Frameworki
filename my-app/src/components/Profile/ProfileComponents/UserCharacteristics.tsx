@@ -11,6 +11,7 @@ import {InternalReviews} from "./InternalReviews";
 import {PanelInformations} from './PanelInformations';
 import {Services} from './Services'
 import {Fees} from "./Fees";
+import {Expertise} from './Expertise'
 import {BiPencil, BiSave} from 'react-icons/bi';
 
 
@@ -53,35 +54,7 @@ export const UserCharacteristics: FC = () => {
     
     return (
         <Wrapper>
-            <Characteristics>
-                <h2>Expertise</h2>
-                <CharacteristicWrapper>
-                    <Characteristic><span>Mergers and acquisition</span></Characteristic>
-                </CharacteristicWrapper>    
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Specialties</h2>
-                <CharacteristicWrapper>
-                    <Characteristic><span>Cross border operation</span></Characteristic>
-                    <Characteristic><span>Transaction over 500M</span></Characteristic>
-                </CharacteristicWrapper>
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Admission to practise law</h2>
-                <CharacteristicWrapper>
-                    <Characteristic><span>Paris bar association</span></Characteristic>
-                    <Characteristic><span>Tunisia bar association</span></Characteristic>
-                </CharacteristicWrapper>
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Counties</h2>
-                <CharacteristicWrapper>
-                    <Characteristic><span>Tunisia</span></Characteristic>
-                </CharacteristicWrapper>
-            </Characteristics>
+            <Expertise Edited = {isEdited}/>
 
             { isEdited ? <EditButton type="button" onClick={onEdited}><BiSave/></EditButton>
                        : <EditButton type="button" onClick={onEdited}><BiPencil/></EditButton>}
