@@ -202,29 +202,31 @@ export const TopBar: FC<ITopBarProps> = (props) => {
     }
 
     return(
-        <TopWrapper ref={wrapperRef}>
-            <LeftWrapper>    
-                <CustomImg src='../../media/logo.png'/>
-                <LeftHomeIcon>
-                    <CustomIcon src='../../media/icons/house.svg'/>
-                    <div>Home</div>
-                    <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
-                    {dropdownOpen && <ExpandedMenu username={props.username}/>}
-                </LeftHomeIcon>        
-            </LeftWrapper>
-            <MiddleWrapper>
-                <InputWrapper> 
-                    <CustomInput type='text' placeholder="Search LegalCluster"/>
-                    <CustomIcon src='../../media/icons/search.svg'/>
-                </InputWrapper>
-            </MiddleWrapper>    
-            <RightIcons>
-                <Link to="/"><CustomIcon src='../../media/icons/house.svg'/></Link>
-                <Link to="/TestPage"><CustomIcon src='../../media/icons/comments.svg'/></Link>
-                <Link to="/TestPage"><CustomIcon src='../../media/icons/bell.svg'/></Link>
-                <MenuIcon onClick={menuHandler} src='../../media/icons/menu.png' />
-                {dropdownOpen && isTabletViewActive() && <ExpandedMenu username={props.username}/>}
-            </RightIcons>          
-        </TopWrapper>
+        <nav>
+            <TopWrapper ref={wrapperRef}>
+                <LeftWrapper>    
+                    <CustomImg src='../../media/logo.png'/>
+                    <LeftHomeIcon>
+                        <CustomIcon src='../../media/icons/house.svg'/>
+                        <div>Home</div>
+                        <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
+                        {dropdownOpen && <ExpandedMenu username={props.username}/>}
+                    </LeftHomeIcon>        
+                </LeftWrapper>
+                <MiddleWrapper>
+                    <InputWrapper> 
+                        <CustomInput type='text' placeholder="Search LegalCluster"/>
+                        <CustomIcon src='../../media/icons/search.svg'/>
+                    </InputWrapper>
+                </MiddleWrapper>    
+                <RightIcons>
+                    <Link to="/"><CustomIcon src='../../media/icons/house.svg'/></Link>
+                    <Link to="/TestPage"><CustomIcon src='../../media/icons/comments.svg'/></Link>
+                    <Link to="/TestPage"><CustomIcon src='../../media/icons/bell.svg'/></Link>
+                    <MenuIcon onClick={menuHandler} src='../../media/icons/menu.png' />
+                    {dropdownOpen && isTabletViewActive() && <ExpandedMenu username={props.username}/>}
+                </RightIcons>          
+            </TopWrapper>
+        </nav>
     );
 };   

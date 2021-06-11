@@ -153,7 +153,7 @@ export interface ILeftMenuProps{
 
 export const LeftMenu: FC<ILeftMenuProps> = (props) => {
     const location = useLocation();
-    return(     
+    return(   
             <Wrapper>
                 <TopCard>
                     <UserHolder>
@@ -206,6 +206,6 @@ export const LeftMenu: FC<ILeftMenuProps> = (props) => {
                         </Link> 
                     </InnerWrapper>   
                 </BottonCard>
-            </Wrapper>       
+            </Wrapper>     
     )
 }   

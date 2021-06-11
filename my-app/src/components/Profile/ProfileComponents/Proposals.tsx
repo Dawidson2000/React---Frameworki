@@ -11,6 +11,7 @@ const Wrapper = styled.div`
     padding: 10px;
     border-top: solid 2px #e1e3e6;
     box-sizing: border-box;
+    overflow: hidden;
 
     & > button{
         background: none;

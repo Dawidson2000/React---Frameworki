@@ -109,7 +109,7 @@ enum dataType {
                     Counties: ['Tunisia']}*/
 
 const DefaultData: { [name: string]: string[] } = 
-                   {Expertise: ['Mergers and acquisition', 'XD'],
+                   {Expertise: ['Mergers and acquisition'],
                     Specialties: ['Cross border operation', 'Transaction over 500M'],
                     Admission: ['Paris bar association', 'Tunisia bar association'],
                     Counties: ['Tunisia']}
@@ -119,20 +119,27 @@ export const Expertise: FC<IExpertiseProps> = (props) => {
     const [data, setData] = useState(DefaultData);
 
     const createCharacteristics = (data: any, dataType: string) =>{
-        return(
-            data[dataType].map((characteristic: string, index: number)=>{
-                return(
-                    <Characteristic key={index}>
-                        {props.Edited ? 
-                        <>
-                            <input type="text" value={characteristic} onChange={(event)=>editData(dataType, index, event)}/>
-                            <button type='button' onClick={() => removeData(dataType, index)}><FiX/></button>
-                        </> 
-                        : 
-                        <span>{characteristic}</span>}
-                    </Characteristic>
-                )
-            })
+        return(                
+            <Characteristics>
+                <h2>{dataType}</h2>
+                <CharacteristicWrapper>
+                    {data[dataType].length === 0 && <span>No {dataType}</span>}
+                    {data[dataType].map((characteristic: string, index: number)=>{
+                        return(
+                            <Characteristic key={index}>
+                                {props.Edited ? 
+                                <>
+                                    <input type="text" value={characteristic} onChange={(event)=>editData(dataType, index, event)}/>
+                                    <button type='button' onClick={() => removeData(dataType, index)}><FiX/></button>
+                                </> 
+                                : 
+                                <span>{characteristic}</span>}
+                            </Characteristic>
+                        )
+                    })}
+                    {props.Edited &&  <button type='button' onClick={() => addData(dataType)}><GoPlus/></button>}
+                </CharacteristicWrapper>    
+            </Characteristics>
         )
     }
 
@@ -157,42 +164,11 @@ export const Expertise: FC<IExpertiseProps> = (props) => {
     }
 
     return (
-        <Wrapper>
-            <Characteristics>
-                <h2>Expertise</h2>
-                <CharacteristicWrapper>
-                    {data.Expertise.length === 0 && <span>No Expertises</span>}
-                    {createCharacteristics(data, 'Expertise')}
-                    {props.Edited &&  <button type='button' onClick={() => addData('Expertise')}><GoPlus/></button>}
-                </CharacteristicWrapper>    
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Specialties</h2>
-                <CharacteristicWrapper>
-                    {data.Specialties.length === 0 && <span>No Specialties</span>}
-                    {createCharacteristics(data, 'Specialties')}
-                    {props.Edited &&  <button type='button' onClick={() => addData('Specialties')}><GoPlus/></button>}
-                </CharacteristicWrapper>
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Admission to practise law</h2>
-                <CharacteristicWrapper>
-                    {data.Admission.length === 0 && <span>No Admission to practise law</span>}
-                    {createCharacteristics(data, 'Admission')}
-                    {props.Edited &&  <button type='button' onClick={() => addData('Admission')}><GoPlus/></button>}   
-                </CharacteristicWrapper>
-            </Characteristics>
-            
-            <Characteristics>
-                <h2>Counties</h2>
-                <CharacteristicWrapper>
-                    {data.Counties.length === 0 && <span>No Counties</span>}
-                    {createCharacteristics(data, 'Counties')}
-                    {props.Edited &&  <button type='button' onClick={() => addData('Counties')}><GoPlus/></button>}
-                </CharacteristicWrapper>
-            </Characteristics>        
+        <Wrapper>  
+            {createCharacteristics(data, 'Expertise')}
+            {createCharacteristics(data, 'Specialties')}
+            {createCharacteristics(data, 'Admission')}
+            {createCharacteristics(data, 'Counties')}   
         </Wrapper>
     )
 }
