@@ -6,6 +6,7 @@ import {Colors} from '../../styledHelpers/Colors'
 import {fontSize} from '../../styledHelpers/FontSizes';
 import useDropdown from 'react-dropdown-hook';
 import {media} from '../../styledHelpers/Breakpoints';
+import { useLocation } from 'react-router';
 
 import {ExpandedMenu} from './ExpandedMenu';
 import{
@@ -189,6 +190,7 @@ export interface ITopBarProps{
 export const TopBar: FC<ITopBarProps> = (props) => {
 
     const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+    const location = useLocation()
 
     const menuHandler = () =>{
         toggleDropdown();
@@ -201,6 +203,12 @@ export const TopBar: FC<ITopBarProps> = (props) => {
         {console.log("t"); return true}
     }
 
+    const setLocation = ():string =>{
+        if(location.pathname === '/')
+            return "Home"
+        return location.pathname.substring(1);
+    }
+
     return(
         <nav>
             <TopWrapper ref={wrapperRef}>
@@ -208,7 +216,7 @@ export const TopBar: FC<ITopBarProps> = (props) => {
                     <CustomImg src='../../media/logo.png'/>
                     <LeftHomeIcon>
                         <CustomIcon src='../../media/icons/house.svg'/>
-                        <div>Home</div>
+                        <div>{setLocation()}</div>
                         <MenuArrow onClick={menuHandler} src ='../../media/icons/arrow-down.svg'/>
                         {dropdownOpen && <ExpandedMenu username={props.username}/>}
                     </LeftHomeIcon>        

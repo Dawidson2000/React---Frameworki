@@ -24,20 +24,9 @@ const Wrapper = styled.div`
 type GetUsers = ReturnType<typeof getUsers>
 
 export const TestPage: FC = () => {
-    const dispatch = useDispatch();
-
-    useEffect(()=>{
-        dispatch<GetUsers>(getUsers());
-    },[]);
-
-    const {usersList, someData} = useSelector<IState, IUsersReducer>(state => ({
-        ...state.users
-    }));
-    
     return (
         <Wrapper>
             <span>¯\_( ͡ㆆ ͜ʖ ͡ㆆ)_/¯</span>
-            <p>{usersList[3]?.name}</p>
         </Wrapper>
     
     )
