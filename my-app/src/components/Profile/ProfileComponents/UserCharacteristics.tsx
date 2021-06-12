@@ -28,21 +28,6 @@ const Wrapper = styled.div`
         margin: 15px 0;
     }
 `;
-const Characteristics = styled.div`
-
-`;
-
-const CharacteristicWrapper = styled.div`
-   display: flex;
-`;
-
-const Characteristic = styled.div`
-    background-color: ${Colors.lightblue};
-    color: ${Colors.see};
-    padding: 5px;
-    border-radius: 5px;
-    margin: 0 10px 0 0;
-`;
 
 export const UserCharacteristics: FC = () => {
     
@@ -56,8 +41,8 @@ export const UserCharacteristics: FC = () => {
         <Wrapper>
             <Expertise Edited = {isEdited}/>
 
-            { isEdited ? <EditButton type="button" onClick={onEdited}><BiSave/></EditButton>
-                       : <EditButton type="button" onClick={onEdited}><BiPencil/></EditButton>}
+            { isEdited ? <EditButton type="submit" onClick={onEdited}><BiSave/></EditButton>
+                       : <EditButton type="submit" onClick={onEdited}><BiPencil/></EditButton>}
             
             <PanelInformations Edited = {isEdited}/>
             <Services Edited = {isEdited}/>

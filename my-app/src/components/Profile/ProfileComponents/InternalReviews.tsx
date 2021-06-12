@@ -75,10 +75,11 @@ const Wrapper = styled.div`
        }  
     }
 `;
-const tableRows = [['Operation', 'Renault', 'France', '#Tax', '20/01/2018'],
-                  ['Op. Promet', 'Renault', 'USA', '#M&A', '25/03/2019'],
-                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '25/03/2020']]
+const tableRows = [['Operation', 'Renault', 'France', '#Tax', '2018-01-18'],
+                  ['Op. Promet', 'Renault', 'USA', '#M&A', '2019-03-25'],
+                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '2021-03-27']]
 const headers = ['Name', 'Entity', 'Location', "Expertise", 'Date'];
+const inputTypes = ['text', 'text', 'text', 'text', 'date'];
 
 export interface IInternalReviews{
     Edited: boolean;
@@ -137,7 +138,7 @@ export const InternalReviews: FC<IInternalReviews> = (props) => {
                                     <tr key={rowIndex}>
                                         {row.map((data: string, dataIndex: number) => {
                                             return(
-                                                props.Edited ? <td key={dataIndex}><input type='text' value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                                props.Edited ? <td key={dataIndex}><input type={inputTypes[dataIndex]} value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                     : <td key={dataIndex}>{data}</td>
                                             )
                                         })}

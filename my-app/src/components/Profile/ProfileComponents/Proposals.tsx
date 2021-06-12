@@ -76,10 +76,11 @@ const Wrapper = styled.div`
        }  
     }
 `;
-const tableRows = [['Operation', 'Renault', 'France', '#Tax', '20/01/2018', 'Racine'],
-                  ['Op. Promet', 'Renault', 'USA', '#M&A', '25/03/2019', 'Cliford Chance'],
-                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '25/03/2020', 'SVZ']]
+const tableRows = [['Operation', 'Renault', 'France', '#Tax', '2018-01-20', 'Racine'],
+                  ['Op. Promet', 'Renault', 'USA', '#M&A', '2019-03-25', 'Cliford Chance'],
+                  ['Op. Latandre', 'Renault', 'Italia', '#M&A', '2010-03-25', 'SVZ']]
 const headers = ['Name', 'Entity', 'Location', "Expertise", 'Date', 'Firm'];
+const inputTypes = ['text', 'text', 'text', 'text', 'date', 'text'];
 
 export interface IProposalsProps{
     Edited: boolean;
@@ -138,7 +139,7 @@ export const Proposals: FC<IProposalsProps> = (props) => {
                                     <tr key={rowIndex}>
                                         {row.map((data: string, dataIndex: number) => {
                                             return(
-                                                props.Edited ? <td key={dataIndex}><input type='text' value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                                props.Edited ? <td key={dataIndex}><input type={inputTypes[dataIndex]} value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                     : <td key={dataIndex}>{data}</td>
                                             )
                                         })}

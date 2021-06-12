@@ -75,10 +75,11 @@ const Wrapper = styled.div`
        }  
     }
 `;
-const tableRows = [['2019', 'CS 153', '3500', 'Clifford Chance'],
-                  ['2018', 'CS 173', '9500', 'LinkLaters'],
-                  ['2017', 'CS 153', '35000', 'LinkLaters']]
+const tableRows = [[2019, 'CS 153', 3500, 'Clifford Chance'],
+                  [2018, 'CS 173', 9500, 'LinkLaters'],
+                  [2017, 'CS 153', 35000, 'LinkLaters']]
 const headers = ['Year', 'Cost center', 'Total amount', "Law firm"];
+const inputTypes = ['number', 'text', 'number', 'text'];
 
 export interface IFees{
     Edited: boolean;
@@ -86,14 +87,14 @@ export interface IFees{
 
 export const Fees: FC<IFees> = (props) => {
     
-    const [rows, setRows] = useState<string[][]>([]);
+    const [rows, setRows] = useState<(string | number)[][]>([]);
 
     useEffect(() => {
         setRows(tableRows);
       }, []);
- 
+
     const addRow = () => {
-        setRows(rows => [...rows, [...headers]]);
+        setRows(rows => [...rows, [new Date().getFullYear(), 'Cost Center', 'Total Amount', "Law firm"]]);
     }
 
     const removeRow = (index: number) => {
@@ -111,7 +112,17 @@ export const Fees: FC<IFees> = (props) => {
         setRows(tempTab);
     }
     
-    const createTable = (numberOfDisplayRows: number) => {   
+    const sortRowsByYear = () =>{
+        const sortedRows = [...rows].sort(function(a: any, b: any){
+            return b[0] - a[0];
+        })
+        return sortedRows;
+    }  
+
+    const createTable = (numberOfDisplayRows: number) => {
+        let renderRows: (string | number)[][] = [];       
+        props.Edited ?  renderRows = rows : renderRows = sortRowsByYear();
+        
         return(
             <>
                 <table>
@@ -121,13 +132,13 @@ export const Fees: FC<IFees> = (props) => {
                                 return <th key={headerIndex}>{header}</th>
                             })}
                         </tr>
-                        {rows.map((row: string[], rowIndex: number) => {
+                        {renderRows.map((row: (string | number)[], rowIndex: number) => {
                             if(rowIndex<numberOfDisplayRows){
                                 return(
                                     <tr key={rowIndex}>
-                                        {row.map((data: string, dataIndex: number) => {
+                                        {row.map((data: string | number, dataIndex: number) => {
                                             return(
-                                                props.Edited ? <td key={dataIndex}><input type='text' value={data} placeholder={data} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
+                                                props.Edited ? <td key={dataIndex}><input type={inputTypes[dataIndex]} value={data} placeholder={data.toString()} onChange={(event)=>editData(rowIndex, dataIndex, event)}/></td>
                                                     : <td key={dataIndex}>{data}</td>
                                             )
                                         })}
