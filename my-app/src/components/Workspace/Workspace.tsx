@@ -128,7 +128,12 @@ const BackgroundIcon = styled.img`
     opacity: 0.1;
 `;
 
-export const Workspace: FC = () => {
+export interface IWorkspaceProps{
+    userId: number;
+}
+
+
+export const Workspace: FC<IWorkspaceProps> = (props) => {
     const location: any = useLocation()
     
     const [hidden, setHidden] = useState(true);
@@ -187,7 +192,7 @@ export const Workspace: FC = () => {
                 </MiddleWrapper>
             }
             <div style={{margin: '0 0 25px 0'}}></div>
-            <ResumeYourWork title='Latest Update' buttonPanel={true}/>
+            <ResumeYourWork title='Latest Update' buttonPanel={true} userId={props.userId}/>
         </Wrapper>
     )
 }

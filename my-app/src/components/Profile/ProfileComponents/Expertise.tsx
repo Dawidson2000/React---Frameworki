@@ -95,19 +95,6 @@ export interface IExpertiseProps{
     Edited: boolean;
 }
 
-enum dataType {
-    Expertise,
-    Specialties,
-    Admission,
-    Counties
-}
-
-/*const DefaultData: {Expertise: string[], Specialties: string[], Admission: string[], Counties: string[]} = 
-                   {Expertise: ['Mergers and acquisition'],
-                    Specialties: ['Cross border operation', 'Transaction over 500M'],
-                    Admission: ['Paris bar association', 'Tunisia bar association'],
-                    Counties: ['Tunisia']}*/
-
 const DefaultData: { [name: string]: string[] } = 
                    {Expertise: ['Mergers and acquisition'],
                     Specialties: ['Cross border operation', 'Transaction over 500M'],

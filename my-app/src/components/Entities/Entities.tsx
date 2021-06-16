@@ -247,6 +247,7 @@ export const Entities: FC<IEntitiesProps> = (props) => {
     const [photosJson, setphotosJson] = useState<any>([]);
     const [fullScreen, setFullScreen] = useState(false);
     const [alphabeticallySort, setAlphabeticallySort] = useState(true);
+    const [followedItem, setFollowedItem] = useState<string>('All items');
 
     const inputHandler = (e: any) => {
         const text = e.target.value;
@@ -347,9 +348,9 @@ export const Entities: FC<IEntitiesProps> = (props) => {
                     </InputWrapper>
                     <FollowedWrapper ref={wrapperRef} onClick={menuHandler}>
                         <CustomIcon src='../../media/icons/followed.svg' style={{width: '12px'}}/>
-                        <span>Followed</span>
+                        <span>{followedItem}</span>
                         <CustomIcon src ='../../media/icons/arrow-down-blue.svg' style={{width: '9px'}}/>
-                        {dropdownOpen && <ExpandedFollow/>}
+                        {dropdownOpen && <ExpandedFollow passfollowedItem={setFollowedItem}/>}
                     </FollowedWrapper>
                     </div>
                 

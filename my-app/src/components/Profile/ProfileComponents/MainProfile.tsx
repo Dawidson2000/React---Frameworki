@@ -145,19 +145,13 @@ export interface IMainProfileProps{
 type GetUsers = ReturnType<typeof getUsers>
 
 export const MainProfile: FC<IMainProfileProps> = (props) => { 
-    
-    const dispatch = useDispatch();
-    
+      
     const {usersList} = useSelector<IState, IUsersReducer>(state => ({
         ...state.users
     }));
   
     const [isEdited, setisEdited] = useState(false);
     
-    useEffect(()=>{
-        dispatch<GetUsers>(getUsers());
-    },[]);
-
     const onEdited = () =>{
         setisEdited(!isEdited);
     }

@@ -77,7 +77,7 @@ type GetUsers = ReturnType<typeof getUsers>
 
 export const MainPage: FC = () => {
     
-    const USER_ID = 2;
+    const USER_ID = 3;
   
     const dispatch = useDispatch();
 
@@ -103,7 +103,7 @@ export const MainPage: FC = () => {
                                     </Route>
                                     <Route path="/Workspace" exact>
                                         <InnerWrapper>
-                                            <Workspace/>
+                                            <Workspace userId={USER_ID}/>
                                         </InnerWrapper>
                                     </Route>
                                     <Route path="/Entities" exact>
@@ -118,7 +118,7 @@ export const MainPage: FC = () => {
                                         <InnerWrapper>
                                             <Publications username={usersList[USER_ID]?.name} userID={USER_ID}/>
                                             <Workspaces/>
-                                            <ResumeYourWork title='Resume Your Work' buttonPanel={false}/>
+                                            <ResumeYourWork title='Resume Your Work' buttonPanel={false} userId={USER_ID}/>
                                         </InnerWrapper>
                                     </Route>
                                 </Switch>

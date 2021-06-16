@@ -121,6 +121,7 @@ const InputWrapper = styled.div`
 export interface ITitleProps{
     title: string,
     buttonPanel: boolean;
+    userId: number;
 }
 
 const PER_PAGE = 10;
@@ -129,6 +130,8 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
    
     const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([[]]);
+    const [currentData, setCurrentData] = useState([[]]);
+    const [followedItems, setFollowedItems] = useState<string>('All items');
 
     useEffect(() => {
         fetchData();
@@ -151,6 +154,7 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
         })
 
         setData(comments);
+        setCurrentData(comments);
       }
 
     function handlePageClick({ selected: selectedPage }:any) {
@@ -159,7 +163,7 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
 
     const offset = currentPage * PER_PAGE;
       
-    const pageCount = Math.ceil(data.length / PER_PAGE);
+    const pageCount = Math.ceil(currentData.length / PER_PAGE);
 
     const [inputText, setInputText] = useState<string>('');
 
@@ -171,16 +175,38 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
     const {usersList} = useSelector<IState, IUsersReducer>(state => ({
         ...state.users
     }));
-      
-    const currentPageData = data
+
+    const filterData = () => {
+        let currentfilteredData: any[] = [];
+        [...data].map((element: any) =>{
+            if(element[1]?.toLowerCase().includes(inputText.toLowerCase())){
+                if(followedItems==="My items"){
+                    (element[3] === props.userId) && 
+                        currentfilteredData.push(element);
+                }
+                else if(followedItems==="All items")
+                    currentfilteredData.push(element);
+            }
+        })
+        console.log(currentfilteredData);
+        setCurrentData(currentfilteredData);
+    }
+
+    useEffect(() => {
+        filterData();
+        setCurrentPage(0);
+      }, [inputText, followedItems]);
+
+    //const [follow, setFollow] = useState<boolean>(true); 
+
+    const currentPageData = currentData
         .slice(offset, offset + PER_PAGE)
         .map((element: any, index: number) => {
-            const title: string = data[index+offset][1];
-            const body: string = data[index+offset][2];
-            const userId: number = data[index+offset][3];
+            const title: string = currentData[index+offset][1];
+            const body: string = currentData[index+offset][2];
+            const userId: number = currentData[index+offset][3];
             return(
-                <div key={index} style={{width: '100%'}}>
-                    {title?.toLowerCase().includes(inputText.toLowerCase()) &&
+                <div key={index} style={{width: '100%'}}>           
                         <Comment> 
                             <Link to="/TestPage"><h1>{title}</h1></Link>
                             <p>{body}</p>
@@ -194,8 +220,7 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
                                 <Circle/>
                                 <p>Updated 3 days ago by {usersList[userId]?.name}</p>
                             </InfoContainer>
-                        </Comment>
-                    }
+                        </Comment>                
                 </div>       
         )})
 
@@ -216,9 +241,9 @@ export const ResumeYourWork: FC<ITitleProps> = (props) => {
                     </InputWrapper>                   
                     <FollowedWrapper ref={wrapperRef} onClick={menuHandler}>
                         <CustomIcon src='../../media/icons/followed.svg' style={{width: '12px'}}/>
-                        <span>Followed</span>
+                        <span>{followedItems}</span>
                         <CustomIcon src ='../../media/icons/arrow-down-blue.svg' style={{width: '9px'}}/>
-                        {dropdownOpen && <ExpandedFollow/>}
+                        {dropdownOpen && <ExpandedFollow passfollowedItem={setFollowedItems}/>}
                     </FollowedWrapper>
                     </div>
                 </HeaderWrapper>
