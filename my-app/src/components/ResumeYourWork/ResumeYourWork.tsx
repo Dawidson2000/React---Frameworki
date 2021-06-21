@@ -23,7 +23,8 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;   
+    flex-direction: column;
+    min-height: 100px;
 `;
 
 const Comment = styled.div`
